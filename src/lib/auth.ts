@@ -123,6 +123,52 @@ export async function login(email: string, password: string): Promise<User> {
   return u;
 }
 
+// Login-or-create via OAuth. Email is the join key: if a user exists with
+// this email (from any prior signup — email/password OR different OAuth
+// provider), log them in. Otherwise create a new account with a random
+// unusable password (they'll always sign in via OAuth or reset the
+// password to enable email login). Called from OAuth callback routes.
+export async function loginOrCreateFromOAuth({ email, name, provider }: { email: string; name: string; provider: string }): Promise<User> {
+  const normalizedEmail = email.toLowerCase();
+  const existing = await db.users.findByEmail(normalizedEmail);
+  if (existing) {
+    await setSessionCookie({ sub: existing.id, email: existing.email, teamId: existing.teamId, isAdmin: existing.isAdmin });
+    await db.audit.log({ teamId: existing.teamId, actorId: existing.id, action: `user.login.oauth.${provider}`, entity: "user", entityId: existing.id });
+    return existing;
+  }
+  // Create new user
+  const tId = teamId();
+  const uId = userId();
+  // Random unusable password — user can reset to enable email/password login later
+  const randomPassword = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+  const hash = await hashPassword(randomPassword);
+  await db.teams.create({
+    id: tId,
+    name: `${name.split(" ")[0]}'s team`,
+    ownerId: uId,
+    memberIds: [uId],
+    plan: "free",
+    createdAt: Date.now(),
+    creditBalance: 0,
+  });
+  const user: User = {
+    id: uId,
+    email: normalizedEmail,
+    passwordHash: hash,
+    name,
+    createdAt: Date.now(),
+    teamId: tId,
+    plan: "free",
+    role: "owner",
+    emailDomain: normalizedEmail.split("@")[1],
+    eduVerified: normalizedEmail.endsWith(".edu"),
+  };
+  await db.users.create(user);
+  await setSessionCookie({ sub: user.id, email: user.email, teamId: tId });
+  await db.audit.log({ teamId: tId, actorId: user.id, action: `user.signup.oauth.${provider}`, entity: "user", entityId: user.id });
+  return user;
+}
+
 export async function logout(): Promise<void> {
   const s = await getSession();
   if (s) await db.audit.log({ teamId: s.teamId, actorId: s.sub, action: "user.logout", entity: "user", entityId: s.sub });
