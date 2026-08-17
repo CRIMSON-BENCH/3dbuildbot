@@ -36,6 +36,7 @@ const nav = {
     { label: "Design Essentials PDFs", href: "/design-essentials", desc: "Free DFM guides per process" },
     { label: "Reverse-engineer from photo", href: "/tools/reverse-engineer", desc: "Gemini Vision AI" },
     { label: "Physics & math solvers", href: "/tools/solvers", desc: "Beam · Reynolds · torque · thermal + 10 more" },
+    { label: "Standard parts library", href: "/parts", desc: "Free CAD for fasteners, bearings, motors + custom quotes" },
     { label: "Reviews", href: "/reviews", desc: "Verified customer reviews" },
     { label: "Book a call", href: "/book-a-call", desc: "30 min with an engineer" },
     { label: "Integrations", href: "/integrations", desc: "Onshape · Fusion · Slack · Teams" },

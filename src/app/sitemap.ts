@@ -12,6 +12,7 @@ import { SCHOOLS_LARGE } from "@/data/schools-large";
 import { MACHINES } from "@/data/machines";
 import { PERSONAS } from "@/data/personas";
 import { SOLVERS } from "@/data/solvers";
+import { STANDARD_PARTS, getAllPartCategories } from "@/data/standard-parts";
 
 const BASE = "https://www.3dbuildbot.com";
 
@@ -88,6 +89,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Engineering solvers
   urls.push({ url: `${BASE}/tools/solvers`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
   for (const s of SOLVERS) urls.push({ url: `${BASE}/tools/solvers/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
+
+  // Standard parts library
+  urls.push({ url: `${BASE}/parts`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
+  for (const cat of getAllPartCategories()) urls.push({ url: `${BASE}/parts/${cat}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
+  for (const p of STANDARD_PARTS) urls.push({ url: `${BASE}/parts/${p.category}/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
   return urls;
 }
