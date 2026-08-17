@@ -25,6 +25,16 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         "@context": "https://schema.org", "@type": "TechArticle",
         headline: g.title, description: g.description,
         datePublished: g.updated, dateModified: g.updated,
+        author: { "@type": "Organization", name: "3DBuildBot" },
+        publisher: { "@type": "Organization", name: "3DBuildBot", logo: { "@type": "ImageObject", url: "https://www.3dbuildbot.com/icon.png" } },
+      }} />
+      <JsonLd data={{
+        "@context": "https://schema.org", "@type": "FAQPage",
+        mainEntity: g.sections.map((s) => ({
+          "@type": "Question",
+          name: s.heading,
+          acceptedAnswer: { "@type": "Answer", text: s.body },
+        })),
       }} />
       <Section>
         <Container className="max-w-3xl">

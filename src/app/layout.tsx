@@ -5,8 +5,7 @@ import { Footer } from "@/components/Footer";
 import { LiveChat } from "@/components/LiveChat";
 import { CookieBanner } from "@/components/CookieBanner";
 import { JsonLdOrg } from "@/components/JsonLdOrg";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { AnalyticsGated } from "@/components/AnalyticsGated";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.3dbuildbot.com"),
@@ -21,6 +20,12 @@ export const metadata: Metadata = {
     url: "https://www.3dbuildbot.com",
   },
   twitter: { card: "summary_large_image", title: "3DBuildBot", description: "Instant CAD quotes. US-made. ITAR-ready." },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : undefined,
+  },
+  alternates: { canonical: "https://www.3dbuildbot.com" },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 } },
 };
 
 const themeScript = `
@@ -44,8 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <LiveChat />
         <CookieBanner />
-        <Analytics />
-        <SpeedInsights />
+        <AnalyticsGated />
       </body>
     </html>
   );
