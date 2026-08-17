@@ -349,7 +349,7 @@ async function persist(): Promise<void> {
   await writeQueue;
 }
 
-export const db = {
+const dbFile = {
   async all(): Promise<DbShape> {
     return await load();
   },
@@ -597,3 +597,22 @@ export const db = {
     },
   },
 };
+
+// Runtime adapter switch — Postgres when any of the standard Postgres env vars is set,
+// file-backed otherwise. Handles Vercel Postgres, Neon integration, or self-hosted.
+const HAS_POSTGRES = !!(process.env.POSTGRES_URL || process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL);
+
+async function loadDb() {
+  if (HAS_POSTGRES) {
+    const mod = await import("./db-postgres");
+    return mod.dbPostgres as unknown as typeof dbFile;
+  }
+  return dbFile;
+}
+
+// Eager-resolve at module load. Downstream call sites remain `db.users.list()` etc.
+export const db: typeof dbFile = HAS_POSTGRES
+  ? (require("./db-postgres").dbPostgres as unknown as typeof dbFile)
+  : dbFile;
+
+export { loadDb };

@@ -3,8 +3,13 @@
 
 import type { User, Team, Part, Quote, Order, ApiKey, AuditEvent, Invite, Webhook, ApiUsageEvent, Nda, PromoCode, Review, Partner, Ticket, RefundRecord, ContentDoc, PricingOverride, OrderStatus } from "./db";
 
-// Lazy client so build works without POSTGRES_URL set
+// Lazy client so build works without any Postgres env set.
+// @vercel/postgres reads POSTGRES_URL by default; if only DATABASE_URL exists
+// (e.g. Neon integration in some Vercel projects), we alias it before init.
 async function sql() {
+  if (!process.env.POSTGRES_URL && process.env.DATABASE_URL) {
+    process.env.POSTGRES_URL = process.env.DATABASE_URL;
+  }
   const { sql } = await import("@vercel/postgres");
   return sql;
 }
