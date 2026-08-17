@@ -1,11 +1,21 @@
 import { AuthForm } from "@/components/AuthForm";
 import { SocialLoginButtons } from "@/components/SocialLoginButtons";
 import { Container, Section } from "@/components/Card";
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Create your account" };
 
+// When Clerk is configured, redirect to Clerk-powered /sign-up page.
+// Otherwise fall back to legacy bcrypt + optional social login buttons.
 export default function SignupPage() {
+  if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+    redirect("/sign-up");
+  }
+  return LegacySignupPage();
+}
+
+function LegacySignupPage() {
   return (
     <Section>
       <Container className="max-w-md">

@@ -3,6 +3,9 @@ import { SignJWT, jwtVerify } from "jose";
 import bcrypt from "bcryptjs";
 import { db, type User } from "./db";
 import { userId, teamId } from "./ids";
+import { currentUser as clerkCurrentUser } from "@clerk/nextjs/server";
+
+const clerkEnabled = !!process.env.CLERK_SECRET_KEY;
 
 const SESSION_COOKIE = "3dbb_session";
 const SECRET = new TextEncoder().encode(process.env.AUTH_SECRET || "dev-only-secret-please-set-AUTH_SECRET-in-env");
@@ -67,6 +70,37 @@ export async function clearSessionCookie(): Promise<void> {
 }
 
 export async function getCurrentUser(): Promise<User | null> {
+  // Path 1: Clerk-authenticated (when CLERK_SECRET_KEY is set). Look up local
+  // user record by email (populated by /api/webhooks/clerk on first sign-in).
+  if (clerkEnabled) {
+    try {
+      const cu = await clerkCurrentUser();
+      if (cu) {
+        const email = cu.emailAddresses.find((e) => e.id === cu.primaryEmailAddressId)?.emailAddress
+          ?? cu.emailAddresses[0]?.emailAddress;
+        if (email) {
+          const existing = await db.users.findByEmail(email.toLowerCase());
+          if (existing) return existing;
+          // First-time login before webhook fires — create the local user shadow now.
+          const displayName = [cu.firstName, cu.lastName].filter(Boolean).join(" ")
+            || cu.username || email.split("@")[0];
+          const tId = teamId();
+          const uId = userId();
+          const newUser: User = {
+            id: uId, email: email.toLowerCase(), passwordHash: "clerk-managed",
+            name: displayName, createdAt: Date.now(), teamId: tId, plan: "free",
+            role: "owner", emailDomain: email.split("@")[1]?.toLowerCase(),
+            eduVerified: email.toLowerCase().endsWith(".edu"),
+          };
+          await db.teams.create({ id: tId, name: `${displayName.split(" ")[0]}'s team`, ownerId: uId, memberIds: [uId], plan: "free", createdAt: Date.now(), creditBalance: 0 });
+          await db.users.create(newUser);
+          return newUser;
+        }
+      }
+    } catch { /* Clerk auth failed, fall through to legacy session */ }
+  }
+  // Path 2: Legacy bcrypt/JWT session (still works for anyone who signed up
+  // before Clerk was enabled, or when Clerk keys aren't set)
   const session = await getSession();
   if (!session?.sub) return null;
   return (await db.users.findById(session.sub)) || null;

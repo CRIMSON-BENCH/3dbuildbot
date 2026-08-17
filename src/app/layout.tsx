@@ -8,6 +8,9 @@ import { JsonLdOrg } from "@/components/JsonLdOrg";
 import { AnalyticsGated } from "@/components/AnalyticsGated";
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { ClerkProvider } from "@clerk/nextjs";
+
+const clerkConfigured = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.3dbuildbot.com"),
@@ -38,7 +41,7 @@ const themeScript = `
   } catch (e) {}
 `;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+function Shell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -65,4 +68,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   );
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  if (clerkConfigured) {
+    return (
+      <ClerkProvider appearance={{ variables: { colorPrimary: "#3b82f6" } }}>
+        <Shell>{children}</Shell>
+      </ClerkProvider>
+    );
+  }
+  // Clerk not configured yet — render without provider. Legacy /login + /signup
+  // remain functional via the existing bcrypt/JWT flow.
+  return <Shell>{children}</Shell>;
 }
