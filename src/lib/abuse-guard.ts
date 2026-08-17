@@ -2,12 +2,14 @@
 import { NextResponse } from "next/server";
 import { checkIpRate, checkDailyBudget, ipFromRequest } from "./rate-limit";
 
-type Category = "gemini-cheap" | "gemini-vision" | "compute";
+type Category = "gemini-cheap" | "gemini-vision" | "compute" | "auth" | "spam";
 
 const COST_ESTIMATE_CENTS: Record<Category, number> = {
   "gemini-cheap": 1,      // ~$0.001 per Flash call
   "gemini-vision": 20,    // ~$0.20 per Pro Vision call
   "compute": 0,           // no external cost
+  "auth": 0,              // no external cost, throttled for security + AI-quota indirect protection
+  "spam": 0,              // no external cost, throttled for site hygiene
 };
 
 export function guard(req: Request, category: Category): Response | null {

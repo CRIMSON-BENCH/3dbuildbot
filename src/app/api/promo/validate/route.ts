@@ -2,10 +2,14 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { guard } from "@/lib/abuse-guard";
 
 const schema = z.object({ code: z.string(), subtotalCents: z.number().int().min(0) });
 
 export async function POST(req: Request) {
+  // Promo-code brute-force guard: 3/min per IP, 15/hr.
+  const blocked = guard(req, "spam");
+  if (blocked) return blocked;
   try {
     const body = schema.parse(await req.json());
     const promo = await db.promos.findByCode(body.code);

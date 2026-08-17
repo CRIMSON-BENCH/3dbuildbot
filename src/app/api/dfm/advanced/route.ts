@@ -2,6 +2,7 @@
 // Real math, no external calls.
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { guard } from "@/lib/abuse-guard";
 
 const schema = z.object({
   processSlug: z.string(),
@@ -12,6 +13,9 @@ const schema = z.object({
 });
 
 export async function POST(req: Request) {
+  // No external cost, but this is a compute endpoint — throttle to prevent DoS.
+  const blocked = guard(req, "compute");
+  if (blocked) return blocked;
   try {
     const b = schema.parse(await req.json());
     const bboxV = b.bboxMm.x * b.bboxMm.y * b.bboxMm.z; // mm³

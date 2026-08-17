@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { guard } from "@/lib/abuse-guard";
 import { z } from "zod";
 import { signup } from "@/lib/auth";
 
@@ -9,6 +10,8 @@ const schema = z.object({
 });
 
 export async function POST(req: Request) {
+  const blocked = guard(req, "auth");
+  if (blocked) return blocked;
   try {
     const body = schema.parse(await req.json());
     const { user } = await signup(body);

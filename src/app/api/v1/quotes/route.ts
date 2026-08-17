@@ -6,6 +6,7 @@ import { quote as computeQuote } from "@/lib/quote-engine";
 import { analyzeDfm } from "@/lib/gemini";
 import { quoteId } from "@/lib/ids";
 import crypto from "crypto";
+import { checkRate, checkDailyBudget } from "@/lib/rate-limit";
 
 async function auth(req: Request) {
   const bearer = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "") || "";
@@ -32,6 +33,21 @@ const schema = z.object({
 export async function POST(req: Request) {
   const key = await auth(req);
   if (!key) return NextResponse.json({ error: "unauthorized", detail: "Missing or invalid Bearer API key" }, { status: 401 });
+  // Per-key sliding-window rate limit — prevents any single API key from
+  // hammering Gemini and degrading shared quota for other paying customers.
+  // Plan tier drives the limit; team lookup falls back to "free" if missing.
+  const team = await db.teams.findById(key.teamId);
+  const plan = team?.plan ?? "free";
+  const rate = checkRate(key.id, plan);
+  if (!rate.ok) {
+    return NextResponse.json({ error: "rate_limited", detail: `Rate limit exceeded for plan '${plan}'`, retry_after_sec: rate.retryAfterSec }, { status: 429, headers: rate.retryAfterSec ? { "retry-after": String(rate.retryAfterSec) } : undefined });
+  }
+  // Global Gemini budget kill-switch — belt-and-suspenders on top of the
+  // billing cap set at the Gemini API console.
+  const budget = checkDailyBudget(1); // ~$0.001 per analyzeDfm call
+  if (!budget.ok) {
+    return NextResponse.json({ error: "service_unavailable", detail: budget.reason }, { status: 503 });
+  }
   try {
     const body = schema.parse(await req.json());
     const priced = computeQuote({

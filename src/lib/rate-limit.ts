@@ -22,7 +22,9 @@ const PLAN_LIMITS: Record<string, { perMinute: number; perDay: number }> = {
 const ANON_LIMITS: Record<string, { perMinute: number; perHour: number; perDay: number }> = {
   "gemini-cheap": { perMinute: 5, perHour: 30, perDay: 100 },   // material-wizard, materials-chat, quote-dfm, cad-diff, make-vs-buy
   "gemini-vision": { perMinute: 1, perHour: 3, perDay: 5 },     // reverse-engineer — expensive Pro Vision calls
-  "compute": { perMinute: 20, perHour: 200, perDay: 1000 },     // pure-compute endpoints (quote engine, tolerance)
+  "compute": { perMinute: 20, perHour: 200, perDay: 1000 },     // pure-compute endpoints (quote engine, tolerance, dfm/advanced)
+  "auth": { perMinute: 5, perHour: 20, perDay: 100 },           // signup / login — throttle credential stuffing + account farming
+  "spam": { perMinute: 3, perHour: 15, perDay: 50 },            // contact / reviews / promo / referral — no-cost but abusable
 };
 
 export function checkRate(keyId: string, plan: string = "free"): { ok: boolean; retryAfterSec?: number; remaining: number } {
