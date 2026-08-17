@@ -42,6 +42,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Preconnect + DNS-prefetch to reduce TTFB on third-party fetches */}
+        <link rel="preconnect" href="https://api.stripe.com" />
+        <link rel="preconnect" href="https://js.stripe.com" />
+        <link rel="preconnect" href="https://va.vercel-scripts.com" />
+        <link rel="dns-prefetch" href="https://generativelanguage.googleapis.com" />
+        <link rel="dns-prefetch" href="https://api.resend.com" />
+        <link rel="alternate" type="application/rss+xml" title="3DBuildBot Blog" href="/blog/rss.xml" />
         <JsonLdOrg />
       </head>
       <body>

@@ -8,6 +8,7 @@ import { PROCESSES } from "@/data/processes";
 import { Container, Section, Badge } from "@/components/Card";
 import { InlineQuoteCta, DisclaimerFooter } from "@/components/Upsell";
 import { JsonLd } from "@/components/JsonLd";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 
 export function generateStaticParams() { return STATES.map((s) => ({ state: s.slug })); }
 
@@ -27,6 +28,11 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: `Manufacturing in ${s.name}`, description: s.hubDescription, areaServed: s.name }} />
+      <JsonLdBreadcrumbs crumbs={[
+        { name: "Home", url: "/" },
+        { name: "Locations", url: "/locations/california" },
+        { name: s.name, url: `/locations/${s.slug}` },
+      ]} />
       <Section>
         <Container className="max-w-4xl">
           <div className="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 mb-2">{s.region}</div>

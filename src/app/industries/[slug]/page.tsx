@@ -5,6 +5,7 @@ import { INDUSTRIES, getIndustryBySlug } from "@/data/industries";
 import { Container, Section, Badge, FeatureCard } from "@/components/Card";
 import { InlineQuoteCta, DisclaimerFooter, RelatedProducts } from "@/components/Upsell";
 import { JsonLd } from "@/components/JsonLd";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 
 export function generateStaticParams() {
   return INDUSTRIES.map((i) => ({ slug: i.slug }));
@@ -24,6 +25,11 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: `Manufacturing for ${ind.name}`, description: ind.hero }} />
+      <JsonLdBreadcrumbs crumbs={[
+        { name: "Home", url: "/" },
+        { name: "Industries", url: "/industries/aerospace-defense" },
+        { name: ind.name, url: `/industries/${ind.slug}` },
+      ]} />
       <Section>
         <Container className="max-w-4xl">
           <div className="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 mb-2">Industry</div>

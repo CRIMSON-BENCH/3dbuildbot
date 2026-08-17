@@ -6,6 +6,7 @@ import { getProcessBySlug } from "@/data/processes";
 import { Container, Section, Badge } from "@/components/Card";
 import { RelatedProducts, InlineQuoteCta, DisclaimerFooter } from "@/components/Upsell";
 import { JsonLd } from "@/components/JsonLd";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 
 export function generateStaticParams() {
   return MATERIALS.map((m) => ({ slug: m.slug }));
@@ -35,6 +36,11 @@ export default async function MaterialPage({ params }: { params: Promise<{ slug:
         brand: { "@type": "Brand", name: "3DBuildBot" },
         offers: { "@type": "Offer", priceCurrency: "USD", price: m.costPerCm3.toFixed(2), priceSpecification: { "@type": "UnitPriceSpecification", price: m.costPerCm3, priceCurrency: "USD", referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "CMK" } } },
       }} />
+      <JsonLdBreadcrumbs crumbs={[
+        { name: "Home", url: "/" },
+        { name: "Materials", url: "/materials" },
+        { name: m.name, url: `/materials/${m.slug}` },
+      ]} />
       <Section>
         <Container className="max-w-4xl">
           <div className="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 mb-2">Material · {m.category}</div>

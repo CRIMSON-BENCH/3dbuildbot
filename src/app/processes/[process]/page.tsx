@@ -6,6 +6,7 @@ import { MATERIALS } from "@/data/materials";
 import { Container, Section, Badge } from "@/components/Card";
 import { RelatedProducts, InlineQuoteCta, DisclaimerFooter } from "@/components/Upsell";
 import { JsonLd } from "@/components/JsonLd";
+import { JsonLdBreadcrumbs } from "@/components/JsonLdBreadcrumbs";
 
 export function generateStaticParams() {
   return PROCESSES.map((p) => ({ process: p.slug }));
@@ -35,6 +36,11 @@ export default async function ProcessPage({ params }: { params: Promise<{ proces
         provider: { "@type": "Organization", name: "3DBuildBot" },
         areaServed: "United States",
       }} />
+      <JsonLdBreadcrumbs crumbs={[
+        { name: "Home", url: "/" },
+        { name: "Processes", url: "/processes/fdm" },
+        { name: p.name, url: `/processes/${p.slug}` },
+      ]} />
       <Section>
         <Container className="max-w-4xl">
           <div className="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 mb-2">{p.short}</div>

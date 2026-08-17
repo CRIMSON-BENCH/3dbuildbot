@@ -17,7 +17,7 @@ import { PUZZLES } from "@/data/puzzles";
 import { BLOG_POSTS } from "@/data/blog";
 import { INTERNATIONAL_CITIES, getIntlCountries } from "@/data/cities-international";
 
-const STATIC_EXTRAS = ["/faq", "/status", "/careers", "/press", "/search"];
+const STATIC_EXTRAS = ["/faq", "/status", "/careers", "/press", "/search", "/changelog", "/security"];
 
 const BASE = "https://www.3dbuildbot.com";
 
