@@ -4,7 +4,6 @@ const config: CapacitorConfig = {
   appId: "com.threedbuildbot.app",
   appName: "3DBuildBot",
   webDir: "www",
-  bundledWebRuntime: false,
   server: {
     // Load the live production site inside the WebView.
     // When testing a preview build, swap this to your Vercel preview URL.

@@ -56,7 +56,7 @@ export function ThreeViewer({ file, fallbackShape = "bracket", color = "#3b82f6"
       scene.add(axes);
 
       // Load geometry
-      let mesh: THREE.Mesh | null = null;
+      let mesh: import("three").Mesh | null = null;
       try {
         if (file) {
           const ext = file.name.split(".").pop()?.toLowerCase();
@@ -69,7 +69,7 @@ export function ThreeViewer({ file, fallbackShape = "bracket", color = "#3b82f6"
             const { OBJLoader } = await import("three-stdlib");
             const text = await file.text();
             const grp = new OBJLoader().parse(text);
-            grp.traverse((n) => { if ((n as THREE.Mesh).isMesh) (n as THREE.Mesh).material = new THREE.MeshStandardMaterial({ color, metalness: 0.25, roughness: 0.45 }); });
+            grp.traverse((n) => { if ((n as import("three").Mesh).isMesh) (n as import("three").Mesh).material = new THREE.MeshStandardMaterial({ color, metalness: 0.25, roughness: 0.45 }); });
             scene.add(grp);
           }
         }

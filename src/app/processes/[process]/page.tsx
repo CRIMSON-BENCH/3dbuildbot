@@ -8,11 +8,11 @@ import { RelatedProducts, InlineQuoteCta, DisclaimerFooter } from "@/components/
 import { JsonLd } from "@/components/JsonLd";
 
 export function generateStaticParams() {
-  return PROCESSES.map((p) => ({ slug: p.slug }));
+  return PROCESSES.map((p) => ({ process: p.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ process: string }> }): Promise<Metadata> {
+  const { process: slug } = await params;
   const p = getProcessBySlug(slug);
   if (!p) return { title: "Process" };
   return {
@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function ProcessPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function ProcessPage({ params }: { params: Promise<{ process: string }> }) {
+  const { process: slug } = await params;
   const p = getProcessBySlug(slug);
   if (!p) notFound();
   const materials = MATERIALS.filter((m) => m.processes.includes(p.code));

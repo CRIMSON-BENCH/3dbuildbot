@@ -8,7 +8,7 @@ const schema = z.object({
   fullLegalName: z.string().min(1),
   ssn4Last: z.string().length(4).optional(),
   visaClass: z.string().optional(),
-  attestation: z.literal(true, { errorMap: () => ({ message: "attestation_required" }) }),
+  attestation: z.literal(true, { message: "attestation_required" }),
 });
 
 export async function POST(req: Request) {

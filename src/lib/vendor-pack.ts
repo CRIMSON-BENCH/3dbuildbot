@@ -14,13 +14,13 @@ async function getJsPDF() {
 
 interface Ctx { team: Team; user: User; }
 
-function header(doc: ReturnType<Awaited<ReturnType<typeof getJsPDF>>>, title: string) {
+function header(doc: InstanceType<Awaited<ReturnType<typeof getJsPDF>>>, title: string) {
   doc.setFillColor(37, 99, 235); doc.rect(0, 0, 210, 26, "F");
   doc.setTextColor(255); doc.setFontSize(16); doc.setFont("helvetica", "bold"); doc.text("3DBuildBot", 20, 15);
   doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.text(title, 190, 15, { align: "right" });
   doc.setTextColor(30); doc.setFontSize(14); doc.setFont("helvetica", "bold"); doc.text(title, 20, 40);
 }
-function field(doc: ReturnType<Awaited<ReturnType<typeof getJsPDF>>>, y: number, label: string, value: string) {
+function field(doc: InstanceType<Awaited<ReturnType<typeof getJsPDF>>>, y: number, label: string, value: string) {
   doc.setFontSize(9); doc.setFont("helvetica", "normal"); doc.setTextColor(80); doc.text(label, 20, y);
   doc.setFontSize(11); doc.setTextColor(30); doc.text(value, 20, y + 6);
   doc.setDrawColor(180); doc.setLineWidth(0.3); doc.line(20, y + 8, 190, y + 8);

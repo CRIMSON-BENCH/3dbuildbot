@@ -13,7 +13,7 @@ export default async function CapacityPage() {
   const quotes = await Promise.all(inProd.map((o) => db.quotes.findById(o.quoteId)));
   const queueByProc: Record<string, number> = {};
   for (const p of PROCESSES) queueByProc[p.slug] = 0;
-  quotes.forEach((q) => { if (q) queueByProc[q.process] = (queueByProc[q.slug || q.process] || 0) + 1; });
+  quotes.forEach((q) => { if (q) queueByProc[q.process] = (queueByProc[q.process] || 0) + 1; });
 
   return (
     <Section>

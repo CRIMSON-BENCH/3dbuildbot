@@ -56,7 +56,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     zip.file(`${order.id}/Traceability-Record.pdf`, await trace.arrayBuffer());
     zip.file(`${order.id}/README.txt`, `3DBuildBot Compliance Packet\n\nOrder: ${order.id}\nGenerated: ${new Date().toISOString()}\nQR verification: ${origin}/traceability/${order.id}\n\nContents:\n- Certificate of Conformance\n- AS9102 First Article Inspection Report (Forms 1, 2, 3)\n- CMM Inspection Report\n- Statistical Process Control Report\n- Material Certificate with heat lot + country of origin\n- Traceability Record (lot code + machine + operator)\n\nAll documents are auto-generated at time of ship under 3DBuildBot's ISO 9001:2015 quality management system.\n`);
     const buf = await zip.generateAsync({ type: "uint8array" });
-    return new Response(buf, {
+    return new Response(new Uint8Array(buf).buffer as ArrayBuffer, {
       headers: {
         "content-type": "application/zip",
         "content-disposition": `attachment; filename="${order.id}-compliance-pack.zip"`,

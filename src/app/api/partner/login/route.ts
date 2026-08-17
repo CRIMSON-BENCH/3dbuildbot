@@ -29,12 +29,4 @@ export async function POST(req: Request) {
   }
 }
 
-export async function getPartnerSession() {
-  const jar = await cookies();
-  const token = jar.get(COOKIE)?.value;
-  if (!token) return null;
-  try {
-    const { payload } = await jwtVerify(token, SECRET);
-    return payload as { sub: string; email: string };
-  } catch { return null; }
-}
+// getPartnerSession moved to src/lib/partner-auth.ts — route files can only export HTTP methods.
