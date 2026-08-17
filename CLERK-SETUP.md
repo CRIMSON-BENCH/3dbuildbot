@@ -30,8 +30,11 @@ out of the box.
 2. On the "Create application" screen:
    - **App name:** `3DBuildBot`
    - **Sign-in options:** enable **Email**, **Google**, **GitHub**, **Passkey**
-     (skip Apple for now — needs paid Apple Dev account, add later)
 3. Click **Create application** → land in the dashboard
+4. For **Apple Sign-In**: see [APPLE-SIGNIN-SETUP.md](./APPLE-SIGNIN-SETUP.md)
+   — separate 20-min setup requiring the Apple Developer portal, but Clerk
+   handles the hard parts (JWT client_secret rotation) automatically.
+   Required for iOS App Store submission.
 
 ### 2. Copy the API keys (30 seconds)
 
