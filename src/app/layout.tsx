@@ -7,6 +7,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { JsonLdOrg } from "@/components/JsonLdOrg";
 import { AnalyticsGated } from "@/components/AnalyticsGated";
 import { SkipToContent } from "@/components/SkipToContent";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.3dbuildbot.com"),
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="dns-prefetch" href="https://generativelanguage.googleapis.com" />
         <link rel="dns-prefetch" href="https://api.resend.com" />
         <link rel="alternate" type="application/rss+xml" title="3DBuildBot Blog" href="/blog/rss.xml" />
+        <link rel="alternate" type="application/rss+xml" title="3DBuildBot Guides" href="/guides/rss.xml" />
         <JsonLdOrg />
       </head>
       <body>
@@ -58,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <LiveChat />
         <CookieBanner />
+        <ScrollToTop />
         <AnalyticsGated />
       </body>
     </html>

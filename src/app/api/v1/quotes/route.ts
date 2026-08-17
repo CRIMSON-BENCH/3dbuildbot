@@ -6,7 +6,7 @@ import { quote as computeQuote } from "@/lib/quote-engine";
 import { analyzeDfm } from "@/lib/gemini";
 import { quoteId } from "@/lib/ids";
 import crypto from "crypto";
-import { checkRate, checkDailyBudget } from "@/lib/rate-limit";
+import { checkRate, checkDailyBudget, rateLimitHeaders } from "@/lib/rate-limit";
 
 async function auth(req: Request) {
   const bearer = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "") || "";
@@ -39,8 +39,9 @@ export async function POST(req: Request) {
   const team = await db.teams.findById(key.teamId);
   const plan = team?.plan ?? "free";
   const rate = checkRate(key.id, plan);
+  const rlHeaders = rateLimitHeaders(rate);
   if (!rate.ok) {
-    return NextResponse.json({ error: "rate_limited", detail: `Rate limit exceeded for plan '${plan}'`, retry_after_sec: rate.retryAfterSec }, { status: 429, headers: rate.retryAfterSec ? { "retry-after": String(rate.retryAfterSec) } : undefined });
+    return NextResponse.json({ error: "rate_limited", detail: `Rate limit exceeded for plan '${plan}'`, retry_after_sec: rate.retryAfterSec }, { status: 429, headers: { ...rlHeaders, ...(rate.retryAfterSec ? { "retry-after": String(rate.retryAfterSec) } : {}) } });
   }
   // Global Gemini budget kill-switch — belt-and-suspenders on top of the
   // billing cap set at the Gemini API console.
@@ -71,8 +72,8 @@ export async function POST(req: Request) {
       dfm_summary: dfm.summary,
       dfm_issues: dfm.issues,
       expires_at: Date.now() + 30 * 24 * 60 * 60 * 1000,
-    });
+    }, { headers: rlHeaders });
   } catch (e) {
-    return NextResponse.json({ error: "invalid_request", detail: (e as Error).message }, { status: 400 });
+    return NextResponse.json({ error: "invalid_request", detail: (e as Error).message }, { status: 400, headers: rlHeaders });
   }
 }

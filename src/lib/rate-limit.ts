@@ -27,16 +27,25 @@ const ANON_LIMITS: Record<string, { perMinute: number; perHour: number; perDay: 
   "spam": { perMinute: 3, perHour: 15, perDay: 50 },            // contact / reviews / promo / referral — no-cost but abusable
 };
 
-export function checkRate(keyId: string, plan: string = "free"): { ok: boolean; retryAfterSec?: number; remaining: number } {
+export function checkRate(keyId: string, plan: string = "free"): { ok: boolean; retryAfterSec?: number; remaining: number; limit: number; resetSec: number } {
   const limits = PLAN_LIMITS[plan] || PLAN_LIMITS.free;
   const now = Date.now();
   const arr = (RL.get(keyId) ?? []).filter((t) => now - t < 60000);
   if (arr.length >= limits.perMinute) {
-    return { ok: false, retryAfterSec: Math.ceil((arr[0] + 60000 - now) / 1000), remaining: 0 };
+    return { ok: false, retryAfterSec: Math.ceil((arr[0] + 60000 - now) / 1000), remaining: 0, limit: limits.perMinute, resetSec: 60 };
   }
   arr.push(now);
   RL.set(keyId, arr);
-  return { ok: true, remaining: limits.perMinute - arr.length };
+  return { ok: true, remaining: limits.perMinute - arr.length, limit: limits.perMinute, resetSec: 60 };
+}
+
+// Standard X-RateLimit response headers (RFC 6585-adjacent, GitHub/Twitter convention).
+export function rateLimitHeaders(rate: { remaining: number; limit: number; resetSec: number }): Record<string, string> {
+  return {
+    "x-ratelimit-limit": String(rate.limit),
+    "x-ratelimit-remaining": String(Math.max(0, rate.remaining)),
+    "x-ratelimit-reset": String(Math.floor(Date.now() / 1000) + rate.resetSec),
+  };
 }
 
 export function checkIpRate(ip: string, category: keyof typeof ANON_LIMITS): { ok: boolean; retryAfterSec?: number; reason?: string } {
