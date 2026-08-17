@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body {
+  @apply bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Focus rings */
+*:focus-visible {
+  @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-950 rounded-sm;
+}
+
+/* Selection */
+::selection { @apply bg-brand-600/25 text-slate-900 dark:text-white; }
+
+/* Utility: prose overrides for guide pages */
+.prose-brand h2 { @apply text-2xl font-semibold mt-10 mb-4 tracking-tight; }
+.prose-brand h3 { @apply text-lg font-semibold mt-8 mb-3; }
+.prose-brand p { @apply my-4 leading-relaxed text-slate-700 dark:text-slate-300; }
+.prose-brand ul { @apply my-4 space-y-2 list-disc pl-6 text-slate-700 dark:text-slate-300; }
+.prose-brand a { @apply text-brand-600 hover:text-brand-700 dark:text-brand-400 underline underline-offset-2; }
+.prose-brand code { @apply px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-sm font-mono; }
