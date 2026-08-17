@@ -9,7 +9,8 @@ build/
 *.log
 
 # Local file-backed DB — contains bcrypt hashes and demo data
-data/
+# LEADING SLASH is critical — without it, git would ignore src/data/ too!
+/data/
 
 # OS
 .DS_Store
