@@ -3,6 +3,10 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { LiveChat } from "@/components/LiveChat";
+import { CookieBanner } from "@/components/CookieBanner";
+import { JsonLdOrg } from "@/components/JsonLdOrg";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.3dbuildbot.com"),
@@ -32,12 +36,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <JsonLdOrg />
       </head>
       <body>
         <Nav />
         <main className="min-h-[calc(100vh-4rem)]">{children}</main>
         <Footer />
         <LiveChat />
+        <CookieBanner />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

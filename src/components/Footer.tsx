@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NewsletterSignup } from "./NewsletterSignup";
 
 export function Footer() {
   return (
@@ -57,6 +58,14 @@ export function Footer() {
             <li><Link href="/privacy" className="hover:text-brand-600 dark:hover:text-brand-400">Privacy</Link></li>
             <li><Link href="/refund" className="hover:text-brand-600 dark:hover:text-brand-400">Refund</Link></li>
           </ul>
+        </div>
+      </div>
+      <div className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+          <div className="max-w-md">
+            <NewsletterSignup compact />
+            <p className="mt-2 text-[11px] text-slate-500">Engineering insights every other Tuesday. Unsubscribe anytime.</p>
+          </div>
         </div>
       </div>
       <div className="border-t border-slate-200 dark:border-slate-800">
