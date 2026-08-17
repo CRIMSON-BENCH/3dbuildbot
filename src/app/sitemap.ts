@@ -4,7 +4,7 @@ import { PROCESSES } from "@/data/processes";
 import { INDUSTRIES } from "@/data/industries";
 import { COMPETITORS } from "@/data/competitors";
 import { CERTIFICATIONS } from "@/data/certifications";
-import { GUIDES } from "@/data/guides";
+import { ALL_GUIDES as GUIDES } from "@/data/guides";
 import { GLOSSARY } from "@/data/glossary";
 import { STATES } from "@/data/states";
 import { CITIES } from "@/data/cities";
@@ -13,6 +13,9 @@ import { MACHINES } from "@/data/machines";
 import { PERSONAS } from "@/data/personas";
 import { SOLVERS } from "@/data/solvers";
 import { STANDARD_PARTS, getAllPartCategories } from "@/data/standard-parts";
+import { PUZZLES } from "@/data/puzzles";
+import { BLOG_POSTS } from "@/data/blog";
+import { INTERNATIONAL_CITIES, getIntlCountries } from "@/data/cities-international";
 
 const BASE = "https://www.3dbuildbot.com";
 
@@ -70,9 +73,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const s of STATES) urls.push({ url: `${BASE}/locations/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
   for (const c of CITIES) urls.push({ url: `${BASE}/locations/${c.stateSlug}/${c.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
-  // Universities
+  // Universities + colleges + community colleges
   for (const u of SCHOOLS_LARGE) {
-    if (u.type === "university" || u.type === "college") urls.push({ url: `${BASE}/education/university/${u.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+    if (u.type === "university" || u.type === "college" || u.type === "community-college") urls.push({ url: `${BASE}/education/university/${u.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+    if (u.type === "high-school") urls.push({ url: `${BASE}/education/high-school/${u.stateAbbr.toLowerCase()}/${u.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.4 });
   }
 
   // Partner recruitment SEO
@@ -94,6 +98,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   urls.push({ url: `${BASE}/parts`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
   for (const cat of getAllPartCategories()) urls.push({ url: `${BASE}/parts/${cat}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
   for (const p of STANDARD_PARTS) urls.push({ url: `${BASE}/parts/${p.category}/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+
+  // Puzzles
+  for (const p of PUZZLES) urls.push({ url: `${BASE}/puzzles/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+
+  // Blog
+  urls.push({ url: `${BASE}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
+  for (const p of BLOG_POSTS) urls.push({ url: `${BASE}/blog/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
+
+  // International locations (500+ cities, 40+ countries)
+  urls.push({ url: `${BASE}/international`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
+  for (const country of getIntlCountries()) urls.push({ url: `${BASE}/international/${country}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
+  for (const c of INTERNATIONAL_CITIES) urls.push({ url: `${BASE}/international/${c.countrySlug}/${c.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
   return urls;
 }

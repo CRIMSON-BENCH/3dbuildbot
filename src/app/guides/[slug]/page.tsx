@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { GUIDES, getGuideBySlug } from "@/data/guides";
+import { ALL_GUIDES as GUIDES, getGuideBySlug } from "@/data/guides";
 import { Container, Section, Badge } from "@/components/Card";
 import { InlineQuoteCta, DisclaimerFooter } from "@/components/Upsell";
 import { JsonLd } from "@/components/JsonLd";

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container, Section, Badge } from "@/components/Card";
-import { GUIDES } from "@/data/guides";
+import { ALL_GUIDES as GUIDES } from "@/data/guides";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "DFM & Design Guides" };

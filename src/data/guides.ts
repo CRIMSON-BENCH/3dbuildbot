@@ -174,6 +174,10 @@ export const GUIDES: Guide[] = [
   },
 ];
 
-export const getGuideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug);
-export const getAllGuideSlugs = () => GUIDES.map((g) => g.slug);
-export const getGuidesByCategory = (category: Guide["category"]) => GUIDES.filter((g) => g.category === category);
+import { GUIDES_MORE } from "./guides-more";
+
+export const ALL_GUIDES: Guide[] = [...GUIDES, ...GUIDES_MORE];
+
+export const getGuideBySlug = (slug: string) => ALL_GUIDES.find((g) => g.slug === slug);
+export const getAllGuideSlugs = () => ALL_GUIDES.map((g) => g.slug);
+export const getGuidesByCategory = (category: Guide["category"]) => ALL_GUIDES.filter((g) => g.category === category);
