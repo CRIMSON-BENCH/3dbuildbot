@@ -10,6 +10,7 @@ import { STATES } from "@/data/states";
 import { CITIES } from "@/data/cities";
 import { SCHOOLS_LARGE } from "@/data/schools-large";
 import { MACHINES } from "@/data/machines";
+import { PERSONAS } from "@/data/personas";
 
 const BASE = "https://www.3dbuildbot.com";
 
@@ -78,6 +79,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   urls.push({ url: `${BASE}/for-shops/vs-xometry`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
   for (const s of STATES) urls.push({ url: `${BASE}/for-shops/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
   for (const m of MACHINES) urls.push({ url: `${BASE}/for-shops/machine/${m.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+
+  // Prototyper / creator persona SEO
+  urls.push({ url: `${BASE}/for-prototypers`, lastModified: now, changeFrequency: "weekly", priority: 0.8 });
+  for (const p of PERSONAS) urls.push({ url: `${BASE}/for-prototypers/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
 
   return urls;
 }

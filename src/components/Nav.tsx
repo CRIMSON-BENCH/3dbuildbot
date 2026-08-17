@@ -38,6 +38,8 @@ const nav = {
     { label: "Reviews", href: "/reviews", desc: "Verified customer reviews" },
     { label: "Book a call", href: "/book-a-call", desc: "30 min with an engineer" },
     { label: "Integrations", href: "/integrations", desc: "Onshape · Fusion · Slack · Teams" },
+    { label: "For prototypers →", href: "/for-prototypers", desc: "Hardware startups · students · makers" },
+    { label: "For job shops →", href: "/for-shops", desc: "Partner network · keep 70%" },
     { label: "Glossary", href: "/glossary", desc: "Terms every engineer needs" },
     { label: "Certifications", href: "/certifications", desc: "ISO 9001 · AS9100D · ITAR" },
   ],
