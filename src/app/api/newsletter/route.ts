@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { guard } from "@/lib/abuse-guard";
 import { db } from "@/lib/db";
+import { addToNewsletter } from "@/lib/email";
 
 const schema = z.object({ email: z.string().email() });
 
@@ -13,7 +14,7 @@ export async function POST(req: Request) {
   try {
     const body = schema.parse(await req.json());
     await db.audit.log({ teamId: "public", actorId: "anon", action: "newsletter.subscribe", entity: "newsletter", detail: body.email });
-    // TODO: forward to Resend audience when RESEND_API_KEY + RESEND_NEWSLETTER_AUDIENCE_ID set
+    await addToNewsletter(body.email); // silently no-ops if RESEND not configured
     return NextResponse.json({ ok: true });
   } catch (e) {
     return NextResponse.json({ ok: false, error: (e as Error).message }, { status: 400 });

@@ -6,6 +6,7 @@ import { LiveChat } from "@/components/LiveChat";
 import { CookieBanner } from "@/components/CookieBanner";
 import { JsonLdOrg } from "@/components/JsonLdOrg";
 import { AnalyticsGated } from "@/components/AnalyticsGated";
+import { SkipToContent } from "@/components/SkipToContent";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.3dbuildbot.com"),
@@ -44,8 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLdOrg />
       </head>
       <body>
+        <SkipToContent />
         <Nav />
-        <main className="min-h-[calc(100vh-4rem)]">{children}</main>
+        <main id="main-content" className="min-h-[calc(100vh-4rem)]">{children}</main>
         <Footer />
         <LiveChat />
         <CookieBanner />

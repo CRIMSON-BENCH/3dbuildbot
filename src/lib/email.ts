@@ -1,6 +1,27 @@
 // Resend email wrapper with local-logging fallback.
 const KEY = process.env.RESEND_API_KEY;
 
+// Optional Resend audience for newsletter forwarding.
+// Set RESEND_NEWSLETTER_AUDIENCE_ID + RESEND_API_KEY to enable.
+export async function addToNewsletter(email: string): Promise<{ ok: boolean; error?: string; simulated?: boolean }> {
+  const audienceId = process.env.RESEND_NEWSLETTER_AUDIENCE_ID;
+  if (!KEY || !audienceId) {
+    console.log("[newsletter:simulated]", email);
+    return { ok: true, simulated: true };
+  }
+  try {
+    const res = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: `Bearer ${KEY}` },
+      body: JSON.stringify({ email, unsubscribed: false }),
+    });
+    if (!res.ok) return { ok: false, error: `resend_${res.status}` };
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, error: (e as Error).message };
+  }
+}
+
 export async function sendEmail(input: { to: string; subject: string; html: string; from?: string }): Promise<{ ok: boolean; id?: string; simulated?: boolean }> {
   if (!KEY) {
     console.log("[email:simulated]", { to: input.to, subject: input.subject });

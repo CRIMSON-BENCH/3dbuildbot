@@ -17,6 +17,8 @@ import { PUZZLES } from "@/data/puzzles";
 import { BLOG_POSTS } from "@/data/blog";
 import { INTERNATIONAL_CITIES, getIntlCountries } from "@/data/cities-international";
 
+const STATIC_EXTRAS = ["/faq", "/status", "/careers", "/press", "/search"];
+
 const BASE = "https://www.3dbuildbot.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -110,6 +112,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   urls.push({ url: `${BASE}/international`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
   for (const country of getIntlCountries()) urls.push({ url: `${BASE}/international/${country}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
   for (const c of INTERNATIONAL_CITIES) urls.push({ url: `${BASE}/international/${c.countrySlug}/${c.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+
+  // Static extras added late (careers, press, faq, status, search)
+  for (const path of STATIC_EXTRAS) urls.push({ url: `${BASE}${path}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
   return urls;
 }
