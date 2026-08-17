@@ -1,0 +1,2 @@
+This file exists so git tracks the public/ directory even when it has no other content.
+Next.js apps use public/ for static assets served at the site root (favicon, robots.txt, images, etc.).
