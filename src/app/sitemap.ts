@@ -9,6 +9,7 @@ import { GLOSSARY } from "@/data/glossary";
 import { STATES } from "@/data/states";
 import { CITIES } from "@/data/cities";
 import { SCHOOLS_LARGE } from "@/data/schools-large";
+import { MACHINES } from "@/data/machines";
 
 const BASE = "https://www.3dbuildbot.com";
 
@@ -70,6 +71,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const u of SCHOOLS_LARGE) {
     if (u.type === "university" || u.type === "college") urls.push({ url: `${BASE}/education/university/${u.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
   }
+
+  // Partner recruitment SEO
+  urls.push({ url: `${BASE}/for-shops`, lastModified: now, changeFrequency: "weekly", priority: 0.8 });
+  urls.push({ url: `${BASE}/for-shops/apply`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
+  urls.push({ url: `${BASE}/for-shops/vs-xometry`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
+  for (const s of STATES) urls.push({ url: `${BASE}/for-shops/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
+  for (const m of MACHINES) urls.push({ url: `${BASE}/for-shops/machine/${m.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
   return urls;
 }
