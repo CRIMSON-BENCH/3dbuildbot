@@ -1,16 +1,43 @@
 // Reverse-engineer from photo(s) via Gemini Vision.
 // Accepts multipart: images[] + optional coin diameter for scale. Returns dimensioned sketch + STEP proposal outline + quote suggestion.
+// GATED: Anonymous users get strict rate limit + 1-image cap. Signed-in users get 3 images + higher rate limit.
 import { NextResponse } from "next/server";
+import { guard } from "@/lib/abuse-guard";
+import { getCurrentUser } from "@/lib/auth";
 
 const KEY = process.env.GEMINI_API_KEY;
+const MAX_IMAGES_ANON = 1;
+const MAX_IMAGES_AUTH = 3;
+const MAX_IMAGES_PAID = 6;
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB per image
 
 export async function POST(req: Request) {
+  const user = await getCurrentUser();
+  // Vision is expensive — hard-gate anonymous requests to the strict category
+  const blocked = guard(req, "gemini-vision");
+  if (blocked) return blocked;
+
   try {
     const form = await req.formData();
     const files = form.getAll("images") as File[];
     const scaleHint = String(form.get("scaleHint") || "US quarter (24.26mm)");
     const partDescription = String(form.get("description") || "");
     if (files.length === 0) return NextResponse.json({ ok: false, error: "no_images" }, { status: 400 });
+
+    // Image count cap based on auth level
+    const maxImages = !user ? MAX_IMAGES_ANON : (user.plan === "free" ? MAX_IMAGES_AUTH : MAX_IMAGES_PAID);
+    if (files.length > maxImages) {
+      return NextResponse.json({
+        ok: false,
+        error: !user
+          ? `Anonymous users get ${MAX_IMAGES_ANON} image. Sign up (free) for ${MAX_IMAGES_AUTH}, or upgrade for ${MAX_IMAGES_PAID}.`
+          : `Your plan supports up to ${maxImages} images per analysis. Upgrade for more.`,
+      }, { status: 402 });
+    }
+    // Per-image size cap
+    for (const f of files) {
+      if (f.size > MAX_IMAGE_BYTES) return NextResponse.json({ ok: false, error: `Image ${f.name} exceeds 5MB limit` }, { status: 413 });
+    }
 
     if (!KEY) return NextResponse.json({ ok: true, ...mockReverseEng(files, scaleHint, partDescription), usingMock: true });
 

@@ -1,6 +1,7 @@
 // Assembly BOM analysis — for each line, recommend make (3DBuildBot) vs buy (McMaster / Digi-Key / etc.)
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { guard } from "@/lib/abuse-guard";
 
 const schema = z.object({
   lines: z.array(z.object({ name: z.string(), qty: z.number().int().min(1), material: z.string().optional(), notes: z.string().optional() })),
@@ -9,6 +10,8 @@ const schema = z.object({
 const KEY = process.env.GEMINI_API_KEY;
 
 export async function POST(req: Request) {
+  const blocked = guard(req, "gemini-cheap");
+  if (blocked) return blocked;
   try {
     const b = schema.parse(await req.json());
     if (!KEY) return NextResponse.json({ ok: true, ...mockAnalysis(b.lines), usingMock: true });

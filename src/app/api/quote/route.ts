@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { quoteId } from "@/lib/ids";
 import { quote as computeQuote } from "@/lib/quote-engine";
 import { analyzeDfm } from "@/lib/gemini";
+import { guard } from "@/lib/abuse-guard";
 
 const schema = z.object({
   partId: z.string().optional(),
@@ -23,6 +24,12 @@ const schema = z.object({
 });
 
 export async function POST(req: Request) {
+  // Public quote endpoint — protect from abuse. Auth users get higher limits.
+  const authed = await getCurrentUser();
+  if (!authed) {
+    const blocked = guard(req, "gemini-cheap");
+    if (blocked) return blocked;
+  }
   try {
     const body = schema.parse(await req.json());
     const priced = computeQuote(body);

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { analyzeDfm } from "@/lib/gemini";
+import { guard } from "@/lib/abuse-guard";
 
 const schema = z.object({
   name: z.string(),
@@ -13,6 +14,8 @@ const schema = z.object({
 });
 
 export async function POST(req: Request) {
+  const blocked = guard(req, "gemini-cheap");
+  if (blocked) return blocked;
   try {
     const body = schema.parse(await req.json());
     const result = await analyzeDfm(body);

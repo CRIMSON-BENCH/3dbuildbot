@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { MATERIALS } from "@/data/materials";
+import { guard } from "@/lib/abuse-guard";
 
 const schema = z.object({
   loadKind: z.enum(["low", "medium", "high", "impact", "cyclic"]),
@@ -17,6 +18,8 @@ const schema = z.object({
 const KEY = process.env.GEMINI_API_KEY;
 
 export async function POST(req: Request) {
+  const blocked = guard(req, "gemini-cheap");
+  if (blocked) return blocked;
   const body = schema.parse(await req.json());
 
   // Deterministic scoring

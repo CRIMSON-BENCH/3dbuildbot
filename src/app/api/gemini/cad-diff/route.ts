@@ -1,6 +1,7 @@
 // CAD version-diff assistant: given two parsed CAD summaries, return a plain-English change list + cost delta.
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { guard } from "@/lib/abuse-guard";
 
 const schema = z.object({
   a: z.object({ filename: z.string(), volumeCm3: z.number(), bboxMm: z.object({ x: z.number(), y: z.number(), z: z.number() }), triangleCount: z.number().optional() }),
@@ -12,6 +13,8 @@ const schema = z.object({
 const KEY = process.env.GEMINI_API_KEY;
 
 export async function POST(req: Request) {
+  const blocked = guard(req, "gemini-cheap");
+  if (blocked) return blocked;
   try {
     const b = schema.parse(await req.json());
     const dV = b.b.volumeCm3 - b.a.volumeCm3;
