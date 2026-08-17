@@ -35,6 +35,7 @@ const nav = {
     { label: "Material Wizard (AI)", href: "/tools/material-wizard", desc: "Gemini-ranked recommendations" },
     { label: "Design Essentials PDFs", href: "/design-essentials", desc: "Free DFM guides per process" },
     { label: "Reverse-engineer from photo", href: "/tools/reverse-engineer", desc: "Gemini Vision AI" },
+    { label: "Physics & math solvers", href: "/tools/solvers", desc: "Beam · Reynolds · torque · thermal + 10 more" },
     { label: "Reviews", href: "/reviews", desc: "Verified customer reviews" },
     { label: "Book a call", href: "/book-a-call", desc: "30 min with an engineer" },
     { label: "Integrations", href: "/integrations", desc: "Onshape · Fusion · Slack · Teams" },

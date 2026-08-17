@@ -11,6 +11,7 @@ import { CITIES } from "@/data/cities";
 import { SCHOOLS_LARGE } from "@/data/schools-large";
 import { MACHINES } from "@/data/machines";
 import { PERSONAS } from "@/data/personas";
+import { SOLVERS } from "@/data/solvers";
 
 const BASE = "https://www.3dbuildbot.com";
 
@@ -83,6 +84,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Prototyper / creator persona SEO
   urls.push({ url: `${BASE}/for-prototypers`, lastModified: now, changeFrequency: "weekly", priority: 0.8 });
   for (const p of PERSONAS) urls.push({ url: `${BASE}/for-prototypers/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.7 });
+
+  // Engineering solvers
+  urls.push({ url: `${BASE}/tools/solvers`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
+  for (const s of SOLVERS) urls.push({ url: `${BASE}/tools/solvers/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
 
   return urls;
 }
