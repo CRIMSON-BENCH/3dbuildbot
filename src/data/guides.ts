@@ -175,8 +175,9 @@ export const GUIDES: Guide[] = [
 ];
 
 import { GUIDES_MORE } from "./guides-more";
+import { GUIDES_MORE2 } from "./guides-more2";
 
-export const ALL_GUIDES: Guide[] = [...GUIDES, ...GUIDES_MORE];
+export const ALL_GUIDES: Guide[] = [...GUIDES, ...GUIDES_MORE, ...GUIDES_MORE2];
 
 export const getGuideBySlug = (slug: string) => ALL_GUIDES.find((g) => g.slug === slug);
 export const getAllGuideSlugs = () => ALL_GUIDES.map((g) => g.slug);
