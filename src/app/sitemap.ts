@@ -17,6 +17,7 @@ import { PUZZLES } from "@/data/puzzles";
 import { ALL_BLOG_POSTS as BLOG_POSTS } from "@/data/blog";
 import { INTERNATIONAL_CITIES, getIntlCountries } from "@/data/cities-international";
 import { caseStudies } from "@/data/case-studies";
+import { FAQ_TOPICS } from "@/data/faq-topics";
 
 const STATIC_EXTRAS = ["/faq", "/status", "/careers", "/press", "/search", "/changelog", "/security"];
 
@@ -131,6 +132,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Certification × Industry combos (5 × 6 = 30)
   for (const c of CERTIFICATIONS) for (const i of INDUSTRIES) urls.push({ url: `${BASE}/certifications/${c.slug}/for/${i.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+
+  // FAQ topic pages (20)
+  for (const t of FAQ_TOPICS) urls.push({ url: `${BASE}/faq/topic/${t.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.55 });
 
   // Case studies
   urls.push({ url: `${BASE}/case-studies`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });

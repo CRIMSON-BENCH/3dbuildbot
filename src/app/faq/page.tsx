@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container, Section } from "@/components/Card";
 import { JsonLd } from "@/components/JsonLd";
 import { InlineQuoteCta } from "@/components/Upsell";
+import { FAQ_TOPICS } from "@/data/faq-topics";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -95,6 +96,18 @@ export default function FaqPage() {
               </div>
             </div>
           ))}
+
+          <div className="mt-12">
+            <h2 className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-3">Deep-dive by topic ({FAQ_TOPICS.length} topic guides, {FAQ_TOPICS.reduce((n, t) => n + t.groups.reduce((m, g) => m + g.items.length, 0), 0)} answers)</h2>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {FAQ_TOPICS.map((t) => (
+                <Link key={t.slug} href={`/faq/topic/${t.slug}`} className="rounded-lg border border-slate-200 dark:border-slate-800 hover:border-brand-500 bg-white dark:bg-slate-900 p-3 block">
+                  <div className="text-sm font-medium">{t.title.replace(" FAQ", "")}</div>
+                  <div className="mt-0.5 text-xs text-slate-500 line-clamp-1">{t.description}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
 
           <InlineQuoteCta label="Ready? Get an instant quote in seconds" />
         </Container>
