@@ -122,6 +122,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const c of INTERNATIONAL_CITIES) for (const p of PROCESSES) urls.push({ url: `${BASE}/international/${c.countrySlug}/${c.slug}/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.45 });
   for (let i = 0; i < MATERIALS.length; i++) for (let j = i + 1; j < MATERIALS.length; j++) urls.push({ url: `${BASE}/materials/vs/${MATERIALS[i].slug}/${MATERIALS[j].slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
+  // Round 2 combos — Process×State (5×51=255), Machine×State (60×51=3060),
+  // Process vs Process (5C2=10) = ~3,325 pages
+  for (const p of PROCESSES) for (const s of STATES) urls.push({ url: `${BASE}/processes/${p.slug}/in/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+  for (const m of MACHINES) for (const s of STATES) urls.push({ url: `${BASE}/for-shops/machine/${m.slug}/in/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.4 });
+  for (let i = 0; i < PROCESSES.length; i++) for (let j = i + 1; j < PROCESSES.length; j++) urls.push({ url: `${BASE}/processes/vs/${PROCESSES[i].slug}/${PROCESSES[j].slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.55 });
+
   // Static extras added late (careers, press, faq, status, search)
   for (const path of STATIC_EXTRAS) urls.push({ url: `${BASE}${path}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
