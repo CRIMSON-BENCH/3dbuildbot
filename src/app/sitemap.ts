@@ -16,6 +16,7 @@ import { STANDARD_PARTS, getAllPartCategories } from "@/data/standard-parts";
 import { PUZZLES } from "@/data/puzzles";
 import { ALL_BLOG_POSTS as BLOG_POSTS } from "@/data/blog";
 import { INTERNATIONAL_CITIES, getIntlCountries } from "@/data/cities-international";
+import { caseStudies } from "@/data/case-studies";
 
 const STATIC_EXTRAS = ["/faq", "/status", "/careers", "/press", "/search", "/changelog", "/security"];
 
@@ -127,6 +128,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const p of PROCESSES) for (const s of STATES) urls.push({ url: `${BASE}/processes/${p.slug}/in/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
   for (const m of MACHINES) for (const s of STATES) urls.push({ url: `${BASE}/for-shops/machine/${m.slug}/in/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.4 });
   for (let i = 0; i < PROCESSES.length; i++) for (let j = i + 1; j < PROCESSES.length; j++) urls.push({ url: `${BASE}/processes/vs/${PROCESSES[i].slug}/${PROCESSES[j].slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.55 });
+
+  // Case studies
+  urls.push({ url: `${BASE}/case-studies`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
+  for (const cs of caseStudies) urls.push({ url: `${BASE}/case-studies/${cs.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
 
   // Static extras added late (careers, press, faq, status, search)
   for (const path of STATIC_EXTRAS) urls.push({ url: `${BASE}${path}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
