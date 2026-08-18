@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { BLOG_POSTS, getBlogPostBySlug } from "@/data/blog";
+import { ALL_BLOG_POSTS as BLOG_POSTS, getBlogPostBySlug } from "@/data/blog";
 import { Container, Section, Badge } from "@/components/Card";
 import { InlineQuoteCta, DisclaimerFooter } from "@/components/Upsell";
 import { JsonLd } from "@/components/JsonLd";

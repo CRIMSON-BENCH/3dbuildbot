@@ -14,7 +14,7 @@ import { PERSONAS } from "@/data/personas";
 import { SOLVERS } from "@/data/solvers";
 import { STANDARD_PARTS, getAllPartCategories } from "@/data/standard-parts";
 import { PUZZLES } from "@/data/puzzles";
-import { BLOG_POSTS } from "@/data/blog";
+import { ALL_BLOG_POSTS as BLOG_POSTS } from "@/data/blog";
 import { INTERNATIONAL_CITIES, getIntlCountries } from "@/data/cities-international";
 
 const STATIC_EXTRAS = ["/faq", "/status", "/careers", "/press", "/search", "/changelog", "/security"];

@@ -1,4 +1,4 @@
-import { BLOG_POSTS } from "@/data/blog";
+import { ALL_BLOG_POSTS as BLOG_POSTS } from "@/data/blog";
 
 const BASE = "https://www.3dbuildbot.com";
 

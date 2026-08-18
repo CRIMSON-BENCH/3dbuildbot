@@ -419,6 +419,10 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
-export const getBlogPostBySlug = (slug: string) => BLOG_POSTS.find((p) => p.slug === slug);
-export const getAllBlogSlugs = () => BLOG_POSTS.map((p) => p.slug);
-export const getBlogPostsByCategory = (cat: BlogPost["category"]) => BLOG_POSTS.filter((p) => p.category === cat);
+import { BLOG_POSTS_MORE } from "./blog-more";
+
+export const ALL_BLOG_POSTS: BlogPost[] = [...BLOG_POSTS, ...BLOG_POSTS_MORE];
+
+export const getBlogPostBySlug = (slug: string) => ALL_BLOG_POSTS.find((p) => p.slug === slug);
+export const getAllBlogSlugs = () => ALL_BLOG_POSTS.map((p) => p.slug);
+export const getBlogPostsByCategory = (cat: BlogPost["category"]) => ALL_BLOG_POSTS.filter((p) => p.category === cat);

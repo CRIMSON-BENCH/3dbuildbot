@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container, Section, Badge } from "@/components/Card";
-import { BLOG_POSTS } from "@/data/blog";
+import { ALL_BLOG_POSTS as BLOG_POSTS } from "@/data/blog";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
