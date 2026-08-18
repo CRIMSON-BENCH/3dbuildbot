@@ -255,5 +255,9 @@ export const PUZZLES: Puzzle[] = [
     solution: "NBR compression set at 80°C is ~15% after 24h. Your 0.5mm compression drops to 0.42mm, dropping the seal pressure below the gas pressure. Solutions: (1) fluoroelastomer (Viton) — 5% compression set at 80°C, expensive, (2) EPDM — better than NBR at temperature, worse in oil, (3) higher initial compression (0.7-1.0mm) to leave margin for set, (4) metal-ring reinforcement in gasket. For engine/exhaust applications: Viton or asbestos-free multi-layer steel."},
 ];
 
-export const getPuzzleBySlug = (slug: string) => PUZZLES.find((p) => p.slug === slug);
-export const getAllPuzzleSlugs = () => PUZZLES.map((p) => p.slug);
+import { PUZZLES_MORE } from "./puzzles-more";
+
+export const ALL_PUZZLES: Puzzle[] = [...PUZZLES, ...PUZZLES_MORE];
+
+export const getPuzzleBySlug = (slug: string) => ALL_PUZZLES.find((p) => p.slug === slug);
+export const getAllPuzzleSlugs = () => ALL_PUZZLES.map((p) => p.slug);

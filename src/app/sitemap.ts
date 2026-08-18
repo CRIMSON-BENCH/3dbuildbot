@@ -13,7 +13,7 @@ import { MACHINES } from "@/data/machines";
 import { PERSONAS } from "@/data/personas";
 import { SOLVERS } from "@/data/solvers";
 import { STANDARD_PARTS, getAllPartCategories } from "@/data/standard-parts";
-import { PUZZLES } from "@/data/puzzles";
+import { ALL_PUZZLES as PUZZLES } from "@/data/puzzles";
 import { ALL_BLOG_POSTS as BLOG_POSTS } from "@/data/blog";
 import { INTERNATIONAL_CITIES, getIntlCountries } from "@/data/cities-international";
 import { caseStudies } from "@/data/case-studies";

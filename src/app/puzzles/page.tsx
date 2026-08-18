@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container, Section } from "@/components/Card";
-import { PUZZLES } from "@/data/puzzles";
+import { ALL_PUZZLES as PUZZLES } from "@/data/puzzles";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: `Engineering Puzzles — ${PUZZLES.length} DFM + Physics Challenges`, description: "Real design-for-manufacturing challenges from our engineering team. GD&T, SLS, CNC, thermal, fatigue, and more." };

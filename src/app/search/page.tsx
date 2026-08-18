@@ -11,7 +11,7 @@ import { SCHOOLS_LARGE } from "@/data/schools-large";
 import { SOLVERS } from "@/data/solvers";
 import { STANDARD_PARTS } from "@/data/standard-parts";
 import { ALL_BLOG_POSTS as BLOG_POSTS } from "@/data/blog";
-import { PUZZLES } from "@/data/puzzles";
+import { ALL_PUZZLES as PUZZLES } from "@/data/puzzles";
 import type { Metadata } from "next";
 
 interface Hit { title: string; sub: string; href: string; category: string; }

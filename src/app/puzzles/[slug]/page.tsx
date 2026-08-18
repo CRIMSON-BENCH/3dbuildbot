@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Container, Section, Badge } from "@/components/Card";
 import { InlineQuoteCta, DisclaimerFooter } from "@/components/Upsell";
-import { PUZZLES, getPuzzleBySlug } from "@/data/puzzles";
+import { ALL_PUZZLES as PUZZLES, getPuzzleBySlug } from "@/data/puzzles";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
