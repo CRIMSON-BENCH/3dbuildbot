@@ -129,6 +129,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const m of MACHINES) for (const s of STATES) urls.push({ url: `${BASE}/for-shops/machine/${m.slug}/in/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.4 });
   for (let i = 0; i < PROCESSES.length; i++) for (let j = i + 1; j < PROCESSES.length; j++) urls.push({ url: `${BASE}/processes/vs/${PROCESSES[i].slug}/${PROCESSES[j].slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.55 });
 
+  // Certification × Industry combos (5 × 6 = 30)
+  for (const c of CERTIFICATIONS) for (const i of INDUSTRIES) urls.push({ url: `${BASE}/certifications/${c.slug}/for/${i.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+
   // Case studies
   urls.push({ url: `${BASE}/case-studies`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
   for (const cs of caseStudies) urls.push({ url: `${BASE}/case-studies/${cs.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
