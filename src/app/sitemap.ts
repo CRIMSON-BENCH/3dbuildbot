@@ -113,6 +113,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const country of getIntlCountries()) urls.push({ url: `${BASE}/international/${country}`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
   for (const c of INTERNATIONAL_CITIES) urls.push({ url: `${BASE}/international/${c.countrySlug}/${c.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
+  // Round 1 SEO combos — Industry × State (306), Material × Industry (120),
+  // City × Process (497×5=2,485), International City × Process (499×5=2,495),
+  // Material vs Material (20×19/2=190) = ~5,600 new pages
+  for (const i of INDUSTRIES) for (const s of STATES) urls.push({ url: `${BASE}/industries/${i.slug}/${s.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.55 });
+  for (const m of MATERIALS) for (const i of INDUSTRIES) urls.push({ url: `${BASE}/materials/${m.slug}/for/${i.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+  for (const c of CITIES) for (const p of PROCESSES) urls.push({ url: `${BASE}/locations/${c.stateSlug}/${c.slug}/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.45 });
+  for (const c of INTERNATIONAL_CITIES) for (const p of PROCESSES) urls.push({ url: `${BASE}/international/${c.countrySlug}/${c.slug}/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.45 });
+  for (let i = 0; i < MATERIALS.length; i++) for (let j = i + 1; j < MATERIALS.length; j++) urls.push({ url: `${BASE}/materials/vs/${MATERIALS[i].slug}/${MATERIALS[j].slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+
   // Static extras added late (careers, press, faq, status, search)
   for (const path of STATIC_EXTRAS) urls.push({ url: `${BASE}${path}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
 
