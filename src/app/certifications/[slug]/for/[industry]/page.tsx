@@ -9,14 +9,14 @@ import { Container, Section, Badge } from "@/components/Card";
 import { InlineQuoteCta, DisclaimerFooter } from "@/components/Upsell";
 
 export function generateStaticParams() {
-  const combos: { cert: string; industry: string }[] = [];
-  for (const c of CERTIFICATIONS) for (const i of INDUSTRIES) combos.push({ cert: c.slug, industry: i.slug });
+  const combos: { slug: string; industry: string }[] = [];
+  for (const c of CERTIFICATIONS) for (const i of INDUSTRIES) combos.push({ slug: c.slug, industry: i.slug });
   return combos;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ cert: string; industry: string }> }): Promise<Metadata> {
-  const { cert, industry } = await params;
-  const c = CERTIFICATIONS.find((x) => x.slug === cert);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string; industry: string }> }): Promise<Metadata> {
+  const { slug, industry } = await params;
+  const c = CERTIFICATIONS.find((x) => x.slug === slug);
   const i = INDUSTRIES.find((x) => x.slug === industry);
   if (!c || !i) return { title: "Certification × Industry" };
   return {
@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: { params: Promise<{ cert: str
   };
 }
 
-export default async function Page({ params }: { params: Promise<{ cert: string; industry: string }> }) {
-  const { cert, industry } = await params;
-  const c = CERTIFICATIONS.find((x) => x.slug === cert);
+export default async function Page({ params }: { params: Promise<{ slug: string; industry: string }> }) {
+  const { slug, industry } = await params;
+  const c = CERTIFICATIONS.find((x) => x.slug === slug);
   const i = INDUSTRIES.find((x) => x.slug === industry);
   if (!c || !i) notFound();
 

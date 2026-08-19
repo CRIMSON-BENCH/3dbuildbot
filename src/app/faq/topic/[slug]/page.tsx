@@ -45,7 +45,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <Link href="/faq" className="text-brand-600 hover:underline">FAQ</Link> · {topic.title}
           </div>
           <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight">{topic.title}</h1>
-          <Badge tone="brand" className="mt-3">{topic.groups.reduce((n, g) => n + g.items.length, 0)} answers</Badge>
+          <div className="mt-3"><Badge tone="brand">{topic.groups.reduce((n, g) => n + g.items.length, 0)} answers</Badge></div>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">{topic.intro}</p>
 
           <div className="mt-10 space-y-10">
