@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Get an Instant CAD Quote",
-  description: "Upload a STEP, STL, or native CAD file. Get a locked-price quote in seconds, ship in 2–7 days. Files never leave your browser.",
+  description: "Upload a STEP, STL, or native CAD file. FDM parts ship in 3–6 days from our US supplier network. Files never leave your browser.",
 };
 
 export default function QuotePage() {

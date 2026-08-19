@@ -50,7 +50,7 @@ export default async function PartPage({ params }: { params: Promise<{ category:
             <div className="space-y-3">
               <div className="rounded-xl border border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-950/30 p-5">
                 <div className="text-xs font-mono uppercase tracking-widest text-brand-700 dark:text-brand-300 mb-2">Need a custom variant?</div>
-                <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">3DBuildBot can machine or 3D-print any of the customizable variants below in 2–7 days.</p>
+                <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">3DBuildBot can machine or 3D-print any of the customizable variants below in 3–14 days.</p>
                 <ul className="text-sm space-y-1">
                   {p.customizable.map((c) => (
                     <li key={c} className="flex items-start gap-2"><span className="text-brand-500 mt-0.5">→</span>{c}</li>

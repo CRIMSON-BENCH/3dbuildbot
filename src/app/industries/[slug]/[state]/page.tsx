@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!industry || !stateData) return { title: "Industry" };
   return {
     title: `${industry.name} Manufacturing in ${stateData.name} — CNC + 3D Printing`,
-    description: `On-demand manufacturing for ${industry.name} companies in ${stateData.name}. FDM, SLS, MJF, and 5-axis CNC. ITAR-registered US supply chain, 2-7 day turnaround.`,
+    description: `On-demand manufacturing for ${industry.name} companies in ${stateData.name}. FDM, SLS, MJF, and 5-axis CNC. US supplier network, 3-14 day turnaround.`,
   };
 }
 
@@ -58,7 +58,7 @@ export default async function IndustryStatePage({ params }: { params: Promise<{ 
             {industry.certs?.slice(0, 2).map((c) => <Badge key={c} tone="slate">{c}</Badge>)}
           </div>
           <p className="mt-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-            3DBuildBot serves {industry.name.toLowerCase()} engineering teams across {stateData.name} with on-demand manufacturing — FDM, SLS, SLA, MJF, and 5-axis CNC — production-grade parts in 2-7 business days. Whether you're a startup prototyping a first product in {stateCities[0]?.name ?? stateData.name} or a Tier-1 supplier scaling bridge production, our instant-quote engine + US-based partner shops eliminate the RFQ back-and-forth.
+            3DBuildBot serves {industry.name.toLowerCase()} engineering teams across {stateData.name} with on-demand manufacturing — FDM, SLS, SLA, MJF, and 5-axis CNC — production-grade parts in 3-14 business days. Whether you're a startup prototyping a first product in {stateCities[0]?.name ?? stateData.name} or a Tier-1 supplier scaling bridge production, our instant-quote engine + US-based partner shops eliminate the RFQ back-and-forth.
           </p>
 
           <div className="mt-8 grid sm:grid-cols-2 gap-4">
@@ -68,12 +68,12 @@ export default async function IndustryStatePage({ params }: { params: Promise<{ 
                 <li>· Common processes: {industry.processes?.slice(0, 3).join(", ") ?? "5-axis CNC, SLS, DMLS"}</li>
                 <li>· Typical materials: {industry.materials?.slice(0, 3).join(", ") ?? "aluminum, titanium, stainless"}</li>
                 <li>· Certifications aligned: {industry.certs?.slice(0, 3).join(", ") ?? "ISO 9001, AS9100D"}</li>
-                <li>· Lead time: 2-7 business days on standard orders</li>
+                <li>· Lead time: 3-14 business days on standard orders</li>
               </ul>
             </div>
             <div className="rounded-xl border border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-950/30 p-5">
               <div className="text-xs font-mono uppercase tracking-widest text-brand-700 dark:text-brand-300 mb-2">Get quoted from {stateData.name}</div>
-              <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">Upload CAD from your desk in {stateCities[0]?.name ?? stateData.name}. Instant price. Ship to any address in {stateData.name} in 2-7 days.</p>
+              <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">Upload CAD from your desk in {stateCities[0]?.name ?? stateData.name}. Instant price. Ship to any address in {stateData.name} in 3-14 days.</p>
               <Link href="/quote" className="inline-block px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Get instant quote →</Link>
             </div>
           </div>

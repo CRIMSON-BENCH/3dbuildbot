@@ -6,12 +6,15 @@ import { Badge } from "./Card";
 import { parseCad, type ParsedCad } from "@/lib/cad-parse";
 import { MATERIALS } from "@/data/materials";
 
+// Processes flagged `instant: false` route to a hand-quote CTA instead of
+// live pricing — the partner-shop side for those isn't wired for automated
+// dispatch yet, so we don't over-promise.
 const processes = [
-  { key: "fdm", name: "FDM", lead: "2–4 days" },
-  { key: "sls", name: "SLS", lead: "3–5 days" },
-  { key: "sla", name: "SLA", lead: "2–4 days" },
-  { key: "mjf", name: "MJF", lead: "3–5 days" },
-  { key: "cnc-machining", name: "5-Axis CNC", lead: "5–7 days" },
+  { key: "fdm", name: "FDM", lead: "3–6 days", instant: true },
+  { key: "sla", name: "SLA", lead: "7–10 days", instant: false },
+  { key: "sls", name: "SLS", lead: "7–10 days", instant: false },
+  { key: "mjf", name: "MJF", lead: "7–10 days", instant: false },
+  { key: "cnc-machining", name: "5-Axis CNC", lead: "10–14 days", instant: false },
 ];
 
 const finishes = [
@@ -45,7 +48,7 @@ interface QuoteResp {
 export function QuoteWidget() {
   const [file, setFile] = useState<File | null>(null);
   const [parsed, setParsed] = useState<ParsedCad | null>(null);
-  const [process, setProcess] = useState("sls");
+  const [process, setProcess] = useState("fdm");
   const [material, setMaterial] = useState("pa12-nylon");
   const [finish, setFinish] = useState("standard");
   const [expedite, setExpedite] = useState<"standard" | "economy" | "rush2" | "rush1" | "weekend">("standard");
@@ -86,6 +89,14 @@ export function QuoteWidget() {
   }
 
   async function runQuote(p: ParsedCad, proc: string, mat: string, fin: string, exp: string, quantity: number) {
+    // Non-instant processes require a hand-quote — skip live pricing so users
+    // don't see a number the auto-flow can't actually fulfill.
+    if (!processes.find((x) => x.key === proc)?.instant) {
+      setResult(null);
+      setTierPrices({});
+      setBusy(false);
+      return;
+    }
     setBusy(true);
     const body = { partName: p.filename, volumeCm3: p.volumeCm3, bboxMm: p.bboxMm, triangleCount: p.triangleCount, hash: p.hash, fileSize: p.fileSize, processSlug: proc, materialSlug: mat, finish: fin, expedite: exp };
     // Fetch all tiers in parallel; persist the main-quantity result.
@@ -157,6 +168,15 @@ export function QuoteWidget() {
                 ))}
               </div>
               <div className="mt-2 text-xs text-slate-500 dark:text-slate-500 font-mono">{proc.name}: {proc.lead}</div>
+              {!proc.instant && (
+                <div className="mt-3 rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 p-3">
+                  <div className="text-xs font-mono uppercase tracking-widest text-amber-700 dark:text-amber-300 mb-1">Hand-quoted</div>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                    {proc.name} orders route to a partner shop and get a firm quote within 1 business day. Upload your CAD and we'll email you the price + lead time — no charge until you approve.
+                  </p>
+                  <Link href="/quote/custom" className="mt-2 inline-block text-xs font-medium text-amber-700 dark:text-amber-300 underline">Get a hand-quote →</Link>
+                </div>
+              )}
             </div>
 
             <div>

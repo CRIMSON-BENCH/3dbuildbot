@@ -16,7 +16,7 @@ export default function ForPrototypersHub() {
           <Badge tone="green">For prototypers · No MOQ · No sales calls</Badge>
           <h1 className="mt-3 text-4xl sm:text-5xl font-semibold tracking-tight">Get your first prototype in 2 days. Iterate weekly. No emails to suppliers.</h1>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-            You're building something new. You need a real physical part in your hands by end of week — not next month after five email threads and a 40-page RFQ. 3DBuildBot was built for exactly this: drop a STEP file, get a locked-price quote in seconds, ship in 2–7 days. Rev B on Monday. Rev C by Thursday. Rev D shipped Friday.
+            You're building something new. You need a real physical part in your hands by end of week — not next month after five email threads and a 40-page RFQ. 3DBuildBot was built for exactly this: drop a STEP file, get an instant FDM quote in seconds, ship in 3–6 days from our US supplier network. Other processes (SLA, SLS, CNC, metal) are hand-quoted in 1 business day.
           </p>
           <div className="mt-6 flex gap-3 flex-wrap">
             <Link href="/quote" className="px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-medium">Get instant quote →</Link>
@@ -29,7 +29,7 @@ export default function ForPrototypersHub() {
       <Section className="py-8">
         <Container>
           <div className="grid sm:grid-cols-4 gap-3">
-            <StatCard value="2–4 days" label="First prototype (FDM/SLA)" sublabel="From CAD to shipped" />
+            <StatCard value="3–6 days" label="FDM prototype end-to-end" sublabel="US supplier network" />
             <StatCard value="$18" label="Starting quote" sublabel="Real part, not a sample" />
             <StatCard value="1" label="Minimum quantity" sublabel="No MOQ, ever" />
             <StatCard value="30 days" label="Price lock" sublabel="Quote today, order Friday" />

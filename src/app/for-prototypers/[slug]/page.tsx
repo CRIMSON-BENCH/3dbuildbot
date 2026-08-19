@@ -38,7 +38,7 @@ export default async function PersonaPage({ params }: { params: Promise<{ slug: 
       <Section className="py-8">
         <Container>
           <div className="grid sm:grid-cols-3 gap-3">
-            <StatCard value="2–7 days" label="Ship time" sublabel="Domestic US ground" />
+            <StatCard value="3–14 days" label="Ship time" sublabel="Domestic US ground" />
             <StatCard value={p.pricingHook.split(" ")[0]} label="Starting price" sublabel="Real part, not a sample" />
             <StatCard value="1" label="Minimum quantity" sublabel="Prototype at scale = 1" />
           </div>

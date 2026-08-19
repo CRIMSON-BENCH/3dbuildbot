@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "3DBuildBot",
     title: "3DBuildBot — Instant CAD Quotes for US-Made Parts",
-    description: "FDM · SLS · SLA · 5-axis CNC. ITAR-registered. Locked-price quotes.",
+    description: "FDM · SLS · SLA · 5-axis CNC. US supplier network. Locked-price quotes.",
     url: "https://www.3dbuildbot.com",
   },
   twitter: { card: "summary_large_image", title: "3DBuildBot", description: "Instant CAD quotes. US-made. ITAR-ready." },

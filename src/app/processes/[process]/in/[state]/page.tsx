@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ process: 
   if (!p || !s) return { title: "Process in State" };
   return {
     title: `${p.name} in ${s.name} — Instant Quote + Fast Delivery`,
-    description: `${p.name} manufacturing serving ${s.name} engineering teams. 2-7 day turnaround, ITAR-eligible workflow, US-based partner shops.`,
+    description: `${p.name} manufacturing serving ${s.name} engineering teams. 3-14 day turnaround, US-based partner-shop network.`,
   };
 }
 
@@ -43,7 +43,7 @@ export default async function ProcessStatePage({ params }: { params: Promise<{ p
           <div className="mt-3 flex flex-wrap gap-2">
             <Badge tone="brand">{p.name}</Badge>
             <Badge>{s.name}</Badge>
-            <Badge tone="slate">2-7 day turnaround</Badge>
+            <Badge tone="slate">3-14 day turnaround</Badge>
           </div>
 
           <p className="mt-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed">

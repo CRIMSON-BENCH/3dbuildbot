@@ -82,7 +82,7 @@ export default async function MaterialIndustryPage({ params }: { params: Promise
 
           <div className="mt-8 rounded-xl border border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-950/30 p-6">
             <h2 className="text-lg font-semibold">Get a {m.name} part quoted for {ind.name.toLowerCase()}</h2>
-            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">Upload CAD, get instant pricing including material, machining, finishing, and lead time. ITAR-registered workflow available on request.</p>
+            <p className="mt-2 text-sm text-slate-700 dark:text-slate-300">Upload CAD, get instant pricing including material, machining, finishing, and lead time. Controlled-data workflow available on request.</p>
             <Link href="/quote" className="mt-4 inline-block px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium">Start a quote →</Link>
           </div>
 

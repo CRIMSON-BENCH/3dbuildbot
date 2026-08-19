@@ -71,7 +71,7 @@ export default async function HSPage({ params }: { params: Promise<{ slug: strin
               <li>Upload the STEP or STL to 3DBuildBot — get an instant quote in seconds</li>
               <li>Choose material — PLA for concept, PETG for durable, aluminum for competition parts</li>
               <li>Your adviser co-approves the order (school payment method or student card)</li>
-              <li>Parts arrive in 2–7 days depending on process</li>
+              <li>Parts arrive in 3–14 days depending on process</li>
             </ol>
           </div>
 

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ process: 
   if (!p) return { title: "Process" };
   return {
     title: `${p.name} — ${p.toleranceMm} tolerance · ${p.leadTimeDays}`,
-    description: `${p.name} at 3DBuildBot: ${p.tagline} Instant quote, ${p.leadTimeDays} lead, ITAR-registered US supply chain.`,
+    description: `${p.name} at 3DBuildBot: ${p.tagline} Instant quote, ${p.leadTimeDays} lead, US-based supplier network.`,
   };
 }
 
