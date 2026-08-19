@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.3dbuildbot.com"),
   title: { default: "3DBuildBot — Instant CAD Quotes. US-Made Parts. ITAR-Ready.", template: "%s · 3DBuildBot" },
   description:
-    "Upload a CAD file, get a locked-price quote in seconds, and ship in 2–7 days. FDM, SLS, SLA, and 5-axis CNC. ISO 9001, AS9100D, ITAR-registered US supply chain.",
+    "Upload a CAD file, get a locked-price quote in seconds, and ship in 5–10 days. FDM, SLS, SLA, MJF, and 5-axis CNC. US-based supplier network.",
   openGraph: {
     type: "website",
     siteName: "3DBuildBot",

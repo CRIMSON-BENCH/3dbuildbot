@@ -41,10 +41,10 @@ const FAQ_GROUPS: { heading: string; items: { q: string; a: string }[] }[] = [
   {
     heading: "ITAR, compliance, quality",
     items: [
-      { q: "Are you ITAR registered?", a: "Yes, 3DBuildBot operates an ITAR workspace with US-persons-only staff, US-based facilities, air-gapped data storage, and full access-audit logging. Flag parts as ITAR at quote time to route to the certified workflow." },
-      { q: "Do you provide AS9102 first-article inspection?", a: "Yes, on every AS9100-flagged order without additional callout. FAI Forms 1/2/3 generated automatically and shipped with the parts. Dimensional inspection reports + CMM data available on request." },
+      { q: "Do you support ITAR-controlled projects?", a: "3DBuildBot supports controlled-data workflows for ITAR/export-controlled work: US-based routing, watermarked previews, air-gapped file handling, and full access-audit logging. If your project involves ITAR-controlled data, contact us before uploading so we can confirm the routing and personnel qualifications for your specific project. We do not represent that we hold DDTC registration ourselves; controlled-data routing is coordinated with cleared partner facilities on a per-order basis." },
+      { q: "Do you provide AS9102 first-article inspection?", a: "Available on request through partner shops that support it. For AS9102 FAI Forms 1/2/3, dimensional inspection reports, and CMM data, flag at quote time or contact us before ordering so we can confirm the partner shop and price the inspection." },
       { q: "Do you support ISO 13485 medical device manufacturing?", a: "Yes for instrument + non-implant components. Certified materials, traceability, sterile-packaged options. Implantable-class requires the OEM's Design History File." },
-      { q: "What certifications do you carry?", a: "ISO 9001:2015 (baseline QMS), AS9100D (aerospace), ITAR (defense articles), DFARS 252.204-7012 (DoD cybersecurity + specialty metals). ISO 13485 available through certified partners." },
+      { q: "What certifications do you carry?", a: "3DBuildBot itself is a manufacturing marketplace; the certifications on a given order come from the partner shop fulfilling it. We can route to ISO 9001, AS9100, ISO 13485, or NADCAP-certified partners on request — contact us with your program's requirements and we'll confirm partner availability and pricing before you order." },
     ],
   },
   {

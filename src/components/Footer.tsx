@@ -11,7 +11,7 @@ export function Footer() {
             <span className="font-semibold">3DBuildBot</span>
           </div>
           <p className="text-slate-600 dark:text-slate-400 mb-3">Instant CAD quotes. US-made. ITAR-registered. From engineering CAD to shipped parts in 2–7 days.</p>
-          <p className="text-xs text-slate-500 dark:text-slate-500">ISO 9001:2015 · AS9100D · ITAR-Registered · DFARS-Compliant</p>
+          <p className="text-xs text-slate-500 dark:text-slate-500">US-based supplier network · Controlled-data workflow available on request</p>
         </div>
         <div>
           <div className="font-semibold text-slate-900 dark:text-slate-100 mb-3">Processes</div>

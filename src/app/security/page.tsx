@@ -17,9 +17,9 @@ const CONTROLS = [
 ];
 
 const CERTS = [
-  { name: "ISO 9001:2015", desc: "Baseline quality management system", status: "Aligned" },
-  { name: "AS9100D", desc: "Aerospace QMS", status: "Aligned" },
-  { name: "ITAR", desc: "DDTC-registered defense articles + services", status: "Registered" },
+  { name: "ISO 9001:2015", desc: "Baseline quality management system", status: "Reference" },
+  { name: "AS9100D", desc: "Aerospace QMS", status: "Reference" },
+  { name: "ITAR", desc: "DDTC controlled-data workflow on request", status: "On request" },
   { name: "DFARS 252.204-7012", desc: "DoD cybersecurity + specialty metals", status: "Compliant" },
   { name: "SOC 2 Type II", desc: "Security + availability audit", status: "In progress" },
   { name: "ISO 13485", desc: "Medical device manufacturing (via partners)", status: "Partner network" },

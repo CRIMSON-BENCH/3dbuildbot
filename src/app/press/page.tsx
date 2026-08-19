@@ -18,7 +18,7 @@ export default function PressPage() {
         <div className="mt-10 space-y-8">
           <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
             <h2 className="text-lg font-semibold">About 3DBuildBot</h2>
-            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">3DBuildBot is an on-demand manufacturing platform serving engineering teams across aerospace, defense, robotics, medical devices, and consumer hardware. Founded 2012, the platform offers instant CAD-to-quote pricing across FDM, SLS, SLA, MJF, DMLS, and 5-axis CNC machining. Customers include Rivian, Anduril, Northrop Grumman, Bosch, Formlabs, and Relativity Space. ISO 9001, AS9100D-aligned, ITAR-registered US supply chain.</p>
+            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">3DBuildBot is an on-demand manufacturing platform for engineering teams across aerospace, defense, robotics, medical devices, and consumer hardware. The platform offers instant CAD-to-quote pricing across FDM, SLS, SLA, MJF, and CNC machining, backed by a US-based supplier network. Controlled-data workflows (for ITAR / export-controlled projects) are available on request.</p>
           </div>
 
           <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">

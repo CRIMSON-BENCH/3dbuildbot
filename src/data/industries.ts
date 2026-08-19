@@ -22,7 +22,7 @@ export const INDUSTRIES: Industry[] = [
     materials: ["Aluminum 6061 / 7075", "Titanium Ti-6Al-4V", "Inconel 718", "Carbon-Fiber Nylon", "PEEK"],
     certs: ["ISO 9001:2015", "AS9100D", "ITAR-Registered", "DFARS-Compliant", "NIST 800-171"],
     color: "from-slate-800/25 to-slate-800/5",
-    namedCustomers: ["Anduril", "Northrop Grumman"],
+    namedCustomers: [],
     useCases: [
       { title: "Flight-critical brackets", body: "5-axis machined Al 7075 and Ti-6Al-4V with FAI, material cert, and CoC on every order." },
       { title: "UAV / drone frames", body: "SLS carbon-fiber nylon airframes and fixtures with sub-week turn and dyed-black finish." },
@@ -40,7 +40,7 @@ export const INDUSTRIES: Industry[] = [
     materials: ["Carbon-Fiber Nylon", "PA12 Nylon", "Aluminum 6061", "Polycarbonate", "Delrin"],
     certs: ["ISO 9001:2015", "Custom NDA workflows"],
     color: "from-emerald-500/20 to-emerald-500/5",
-    namedCustomers: ["Rivian"],
+    namedCustomers: [],
     useCases: [
       { title: "Grippers and end-effectors", body: "SLS carbon-fiber nylon end-effectors optimized for stiffness-to-weight." },
       { title: "Robot chassis panels", body: "Machined aluminum 6061 chassis panels with anodized finish, cut to millimeter tolerance." },
@@ -53,12 +53,12 @@ export const INDUSTRIES: Industry[] = [
     name: "Electric Vehicles",
     tagline: "Prototype tooling, interior mock-ups, and under-hood fixtures for EV programs at speed.",
     hero:
-      "EV teams — from Rivian-scale OEMs to seed-stage startups — use 3DBuildBot for prototype interiors, cooling manifolds, battery test fixtures, and pre-tooling representative parts. High-temp SLA and machined aluminum ship in the same lead time.",
+      "EV teams — from established OEMs to seed-stage startups — use 3DBuildBot for prototype interiors, cooling manifolds, battery test fixtures, and pre-tooling representative parts. High-temp SLA and machined aluminum ship in the same lead time.",
     processes: ["FDM Carbon-Fiber", "5-Axis CNC", "SLA High-Temp", "MJF PA12"],
     materials: ["Carbon-Fiber Nylon", "Aluminum 6061 / 7075", "High-Temp Resin", "PA12 Nylon"],
     certs: ["ISO 9001:2015", "IATF-aligned supplier relationships"],
     color: "from-sky-500/20 to-sky-500/5",
-    namedCustomers: ["Rivian"],
+    namedCustomers: [],
     useCases: [
       { title: "Battery test fixtures", body: "Machined aluminum and PA-CF fixtures for cell characterization and pack-level testing." },
       { title: "Cooling manifolds", body: "SLA high-temp resin manifolds for pre-tooling flow visualization; DMLS metal for functional prototypes." },

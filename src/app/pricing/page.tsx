@@ -36,14 +36,14 @@ export default function PricingPage() {
               <Link href="/contact" className="mt-6 inline-block px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-sm font-medium">Talk to sales →</Link>
             </div>
             <div className="rounded-2xl border border-red-800 bg-slate-950 dark:bg-slate-900 text-white p-8">
-              <div className="text-xs font-mono uppercase tracking-widest text-red-400 mb-2">Defense · ITAR</div>
+              <div className="text-xs font-mono uppercase tracking-widest text-red-400 mb-2">Defense · Controlled data</div>
               <h3 className="text-2xl font-semibold">Custom · from $5,000/mo</h3>
               <ul className="mt-4 space-y-2 text-sm text-slate-300">
-                <li>· ITAR-registered US-only production cell</li>
-                <li>· CMMC-aligned workspace, watermarked previews</li>
-                <li>· AS9100D + DFARS material sourcing</li>
+                <li>· US-based supplier routing on request</li>
+                <li>· Watermarked previews, per-project audit logs</li>
+                <li>· Domestic material sourcing options</li>
                 <li>· Signed NDA per project</li>
-                <li>· US-persons operator verification at every station</li>
+                <li>· ITAR-controlled data handling on request — contact before uploading</li>
               </ul>
               <Link href="/contact" className="mt-6 inline-block px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-sm font-medium">Talk to sales →</Link>
             </div>

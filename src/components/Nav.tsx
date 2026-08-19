@@ -20,7 +20,7 @@ const nav = {
     { label: "All 20 materials →", href: "/materials", desc: "" },
   ],
   Industries: [
-    { label: "Aerospace & Defense", href: "/industries/aerospace-defense", desc: "AS9100D · ITAR" },
+    { label: "Aerospace & Defense", href: "/industries/aerospace-defense", desc: "Controlled-data workflow" },
     { label: "Robotics", href: "/industries/robotics", desc: "End-effectors · chassis" },
     { label: "Electric Vehicles", href: "/industries/electric-vehicles", desc: "Battery + interior" },
     { label: "Medical Devices", href: "/industries/medical", desc: "Biocompat + ISO 13485" },
@@ -46,7 +46,7 @@ const nav = {
     { label: "For prototypers →", href: "/for-prototypers", desc: "Hardware startups · students · makers" },
     { label: "For job shops →", href: "/for-shops", desc: "Partner network · keep 70%" },
     { label: "Glossary", href: "/glossary", desc: "Terms every engineer needs" },
-    { label: "Certifications", href: "/certifications", desc: "ISO 9001 · AS9100D · ITAR" },
+    { label: "Certifications reference", href: "/certifications", desc: "What each cert requires (reference)" },
   ],
   Compare: [
     { label: "vs Xometry", href: "/compare/xometry", desc: "Take-rate + rebids" },

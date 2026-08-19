@@ -6,28 +6,6 @@ import { PROCESSES } from "@/data/processes";
 import { MATERIALS } from "@/data/materials";
 import { INDUSTRIES } from "@/data/industries";
 
-const CUSTOMERS = ["Northrop", "Rivian", "Anduril", "Formlabs", "Relativity", "Bosch"];
-
-const TESTIMONIALS = [
-  {
-    quote: "We replaced a three-day RFQ cycle with a four-second quote. Our hardware team ships a new bracket revision every morning now.",
-    name: "Mira Chen",
-    title: "Mech Eng Lead",
-    company: "Rivian",
-  },
-  {
-    quote: "The DFM feedback caught a thin-wall failure mode before we ever cut metal. That alone paid for the year.",
-    name: "Daniel Okafor",
-    title: "Principal Engineer",
-    company: "Anduril",
-  },
-  {
-    quote: "Material certs in the box, every time. Our AS9100 auditor literally said 'finally.'",
-    name: "Priya Raman",
-    title: "Quality Director",
-    company: "UAV startup",
-  },
-];
 
 const HOW_STEPS = [
   { n: "01", title: "Upload your CAD", body: "Drop a .STL, .STEP, or .OBJ — up to 250 MB. Geometric analysis runs entirely in your browser. Native Solidworks, Inventor, NX, and Fusion 360 files converted within an hour by email." },
@@ -70,9 +48,9 @@ export default function Home() {
         <Container>
           <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-2 mb-6">
-              <Badge tone="brand">ISO 9001 · AS9100D-aligned · ITAR-Registered</Badge>
-              <Badge tone="green">Manufacturing since 2012</Badge>
-              <Badge tone="slate">98 machines online</Badge>
+              <Badge tone="brand">US-based supplier network</Badge>
+              <Badge tone="green">Instant CAD quotes</Badge>
+              <Badge tone="slate">FDM · SLA · SLS · MJF · CNC</Badge>
             </div>
             <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 leading-[1.05]">
               Industrial manufacturing, <span className="text-brand-600 dark:text-brand-400">quoted instantly.</span>
@@ -108,30 +86,18 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* Trust bar — 6 customers */}
-      <Section className="py-10 border-y border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
-        <Container>
-          <div className="text-xs font-mono uppercase tracking-widest text-slate-500 dark:text-slate-500 mb-6 text-center">Trusted by engineering teams at</div>
-          <div className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-14 gap-y-4">
-            {CUSTOMERS.map((c) => (
-              <div key={c} className="text-lg sm:text-xl font-semibold tracking-tight text-slate-700 dark:text-slate-300 opacity-70 hover:opacity-100 transition-opacity">
-                {c}
-              </div>
-            ))}
-          </div>
-        </Container>
-      </Section>
+
 
       {/* Live stats bar */}
       <Section className="py-12">
         <Container>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            <StatCard value="2.4M+" label="Parts delivered lifetime" />
-            <StatCard value="182,400+" label="Parts shipped this year" />
-            <StatCard value="98.7%" label="On-time delivery" />
-            <StatCard value="99.4%" label="First-pass yield" />
+            <StatCard value="Instant" label="CAD quotes in seconds" />
+            <StatCard value="US" label="Domestic supplier network" />
+            <StatCard value="20+" label="Materials on offer" />
+            <StatCard value="5 processes" label="FDM · SLA · SLS · MJF · CNC" />
             <StatCard value="99.98%" label="Platform uptime" />
-            <StatCard value="14 yr" label="Operating since 2012" />
+            <StatCard value="New" label="Just launched" />
           </div>
         </Container>
       </Section>
@@ -221,27 +187,6 @@ export default function Home() {
         </Container>
       </Section>
 
-      {/* Testimonials */}
-      <Section className="bg-slate-50 dark:bg-slate-950">
-        <Container>
-          <div className="max-w-2xl mb-10">
-            <div className="text-xs font-mono uppercase tracking-widest text-brand-600 dark:text-brand-400 mb-2">What engineers say</div>
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">Not marketing quotes. Real engineers, real programs.</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            {TESTIMONIALS.map((t) => (
-              <figure key={t.name} className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 flex flex-col">
-                <svg className="w-6 h-6 text-brand-500 mb-3" viewBox="0 0 24 24" fill="currentColor"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
-                <blockquote className="text-slate-700 dark:text-slate-300 leading-relaxed text-sm flex-1">"{t.quote}"</blockquote>
-                <figcaption className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
-                  <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">{t.name}</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400">{t.title} · <span className="text-brand-600 dark:text-brand-400">{t.company}</span></div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </Container>
-      </Section>
 
       {/* Industries */}
       <Section>
@@ -319,7 +264,7 @@ export default function Home() {
             <div className="grid grid-cols-2 gap-3">
               <StatCard value="±0.025mm" label="CNC tolerance on request" sublabel="ISO 2768-fH standard" />
               <StatCard value="20+" label="Materials in stock" sublabel="PA-CF · Ti-6Al-4V · Inconel · PEEK" />
-              <StatCard value="AS9100D" label="Aerospace QMS aligned" sublabel="ITAR + DFARS + NIST 800-171" />
+              <StatCard value="US-based" label="Domestic supplier network" sublabel="Controlled-data workflow available" />
               <StatCard value="30 days" label="Price lock" sublabel="No post-quote rebids. Ever." />
               <StatCard value="1500+" label="Indexed engineering pages" sublabel="Materials × processes × cities × schools" />
               <StatCard value="0 →" label="Files upload to servers" sublabel="Client-side CAD parsing in-browser" />

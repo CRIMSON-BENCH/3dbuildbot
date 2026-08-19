@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "3DBuildBot — Instant CAD Quotes. US-Made Parts. ITAR-Ready.";
+export const alt = "3DBuildBot — Instant CAD Quotes. US Supplier Network.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -20,7 +20,7 @@ export default async function OpenGraphImage() {
         <div style={{ marginTop: "auto", display: "flex", gap: 32, fontSize: 22, color: "#cbd5e1" }}>
           <div>FDM · SLS · SLA · MJF · 5-Axis CNC</div>
           <div>·</div>
-          <div>ISO 9001 · AS9100D · ITAR</div>
+          <div>US supplier network</div>
         </div>
       </div>
     ),
