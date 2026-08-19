@@ -1,5 +1,6 @@
 import { Container, Section, Badge } from "@/components/Card";
 import { db } from "@/lib/db";
+import { TrustpilotWidget } from "@/components/TrustpilotWidget";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Customer Reviews" };
@@ -18,6 +19,10 @@ export default async function ReviewsPage() {
           <div className="text-3xl font-semibold tabular-nums">{avg.toFixed(1)}</div>
           <div className="text-yellow-500 text-xl">{"★".repeat(Math.round(avg))}{"☆".repeat(5 - Math.round(avg))}</div>
           <div className="text-sm text-slate-500">based on {reviews.length} verified reviews</div>
+        </div>
+
+        <div className="mt-6">
+          <TrustpilotWidget template="carousel" />
         </div>
 
         <div className="mt-8 grid sm:grid-cols-2 gap-4">

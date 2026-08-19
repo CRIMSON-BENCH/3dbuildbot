@@ -18,6 +18,7 @@ import { ALL_BLOG_POSTS as BLOG_POSTS } from "@/data/blog";
 import { INTERNATIONAL_CITIES, getIntlCountries } from "@/data/cities-international";
 import { caseStudies } from "@/data/case-studies";
 import { FAQ_TOPICS } from "@/data/faq-topics";
+import { PRINTABLES } from "@/data/printables";
 
 const STATIC_EXTRAS = ["/faq", "/status", "/careers", "/press", "/search", "/changelog", "/security"];
 
@@ -132,6 +133,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Certification × Industry combos (5 × 6 = 30)
   for (const c of CERTIFICATIONS) for (const i of INDUSTRIES) urls.push({ url: `${BASE}/certifications/${c.slug}/for/${i.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.5 });
+
+  // Free STL library
+  urls.push({ url: `${BASE}/free-stl`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
+  for (const p of PRINTABLES) urls.push({ url: `${BASE}/free-stl/${p.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.55 });
+
+  // Ancillary landing pages
+  urls.push({ url: `${BASE}/design-services`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
+  urls.push({ url: `${BASE}/for-resellers`, lastModified: now, changeFrequency: "monthly", priority: 0.6 });
+  urls.push({ url: `${BASE}/gallery`, lastModified: now, changeFrequency: "weekly", priority: 0.5 });
+  urls.push({ url: `${BASE}/quote/custom`, lastModified: now, changeFrequency: "weekly", priority: 0.7 });
 
   // FAQ topic pages (20)
   for (const t of FAQ_TOPICS) urls.push({ url: `${BASE}/faq/topic/${t.slug}`, lastModified: now, changeFrequency: "monthly", priority: 0.55 });
