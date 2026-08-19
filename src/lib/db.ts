@@ -68,6 +68,7 @@ export interface Part {
   createdAt: number;
   updatedAt: number;
   thumbnailData?: string;
+  fileUrl?: string; // Blob URL to the raw CAD, populated at order-commit time
 }
 
 export interface Quote {
