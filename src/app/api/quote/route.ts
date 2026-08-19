@@ -32,7 +32,14 @@ export async function POST(req: Request) {
   }
   try {
     const body = schema.parse(await req.json());
-    const priced = computeQuote(body);
+    // Loyalty tier: 5% off after the 3rd completed order, +2% each order up to 15% at 10 orders.
+    let loyaltyDiscountPct = 0;
+    if (authed) {
+      const teamOrders = await db.orders.listByTeam(authed.teamId);
+      const paidCount = teamOrders.filter((o) => o.status !== "quoted" && o.status !== "cancelled").length;
+      if (paidCount >= 3) loyaltyDiscountPct = Math.min(15, 5 + (paidCount - 3) * 2);
+    }
+    const priced = computeQuote({ ...body, loyaltyDiscountPct });
     const dfm = await analyzeDfm({ ...body, name: body.partName ?? "Untitled part" });
 
     let saved = null;

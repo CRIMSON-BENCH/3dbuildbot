@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Badge } from "@/components/Card";
 import { formatUSD } from "@/lib/quote-engine";
+import { ReorderButton } from "@/components/ReorderButton";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,10 @@ export default async function OrdersPage() {
                   <td className="px-4 py-3 text-right tabular-nums">{formatUSD(o.totalPaidCents)}</td>
                   <td className="px-4 py-3 text-xs text-slate-500">{new Date(o.updatedAt).toLocaleString()}</td>
                   <td className="px-4 py-3 text-right">
-                    <Link href={`/dashboard/orders/${o.id}`} className="text-xs text-brand-600 dark:text-brand-400">Details →</Link>
+                    <div className="flex items-center justify-end gap-3">
+                      <ReorderButton orderId={o.id} />
+                      <Link href={`/dashboard/orders/${o.id}`} className="text-xs text-brand-600 dark:text-brand-400">Details →</Link>
+                    </div>
                   </td>
                 </tr>
               ))}

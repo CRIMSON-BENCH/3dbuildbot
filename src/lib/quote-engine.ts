@@ -10,6 +10,7 @@ export interface QuoteInput {
   quantity: number;
   finish?: string;
   expedite?: "standard" | "economy" | "rush2" | "rush1" | "weekend";
+  loyaltyDiscountPct?: number; // auto-applied for repeat customers (see /api/quote)
 }
 
 export interface QuoteResult {
@@ -60,6 +61,7 @@ export function quote({
   quantity,
   finish = "standard",
   expedite = "standard",
+  loyaltyDiscountPct = 0,
 }: QuoteInput): QuoteResult {
   const proc = getProcessBySlug(processSlug);
   const mat = getMaterialBySlug(materialSlug);
@@ -90,7 +92,10 @@ export function quote({
 
   // Volume discount
   const volumeDiscountPct = quantity >= 500 ? 40 : quantity >= 100 ? 30 : quantity >= 25 ? 18 : quantity >= 5 ? 8 : 0;
-  const discountedPerPart = Math.round(perPart * (1 - volumeDiscountPct / 100));
+  // Loyalty discount stacks on top of volume, capped at 15% additional.
+  const loyaltyPct = Math.max(0, Math.min(15, loyaltyDiscountPct));
+  const combinedDiscountFactor = (1 - volumeDiscountPct / 100) * (1 - loyaltyPct / 100);
+  const discountedPerPart = Math.round(perPart * combinedDiscountFactor);
   const total = discountedPerPart * quantity;
 
   const drivers = [
@@ -102,6 +107,7 @@ export function quote({
   if (finishMult !== 1) drivers.push({ label: `Finish (${finish})`, cents: Math.round(preFinishPerPart * (finishMult - 1)) });
   if (expediteMult !== 1) drivers.push({ label: `Expedite (${expedite})`, cents: Math.round(withFinish * (expediteMult - 1)) });
   if (volumeDiscountPct > 0) drivers.push({ label: `Volume discount (${volumeDiscountPct}%)`, cents: -Math.round(perPart * (volumeDiscountPct / 100)) });
+  if (loyaltyPct > 0) drivers.push({ label: `Loyalty discount (${loyaltyPct}%)`, cents: -Math.round(perPart * (loyaltyPct / 100) * (1 - volumeDiscountPct / 100)) });
 
   const totalDriversAbs = drivers.reduce((a, d) => a + Math.abs(d.cents), 0);
   const driversWithPct = drivers.map((d) => ({ ...d, pct: Math.round((Math.abs(d.cents) / totalDriversAbs) * 100) }));

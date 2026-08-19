@@ -70,6 +70,7 @@ async function tryAutoDispatch(orderId: string) {
       },
       orderNumber: order.id,
     });
+    await db.orders.update(orderId, { slantOrderId: result.orderId, slantStatus: result.status });
     await db.orders.appendTimeline(
       orderId,
       "in-production",

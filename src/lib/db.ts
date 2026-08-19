@@ -163,6 +163,8 @@ export interface Order {
     countryOfOrigin?: string;
   };
   routing?: { to: "internal" | "partner"; partnerId?: string; assignedAt: number; acceptedAt?: number; rejectedAt?: number; rejectReason?: string; qcPhotos?: string[] };
+  slantOrderId?: string; // populated when auto-dispatched to Slant 3D
+  slantStatus?: string;  // last polled Slant 3D order status
 }
 
 export interface Partner {
