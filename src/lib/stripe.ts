@@ -18,6 +18,27 @@ async function getStripe() {
   };
 }
 
+export async function createSubscriptionCheckout(input: {
+  priceId: string;
+  customerEmail: string;
+  metadata: Record<string, string>;
+  successUrl: string;
+  cancelUrl: string;
+}): Promise<{ url: string; demo: boolean }> {
+  const s = await getStripe();
+  if (!s) return { url: `${input.successUrl}?demo=1`, demo: true };
+  const session = await s.checkout.sessions.create({
+    mode: "subscription",
+    payment_method_types: ["card"],
+    customer_email: input.customerEmail,
+    line_items: [{ price: input.priceId, quantity: 1 }],
+    metadata: input.metadata,
+    success_url: input.successUrl,
+    cancel_url: input.cancelUrl,
+  });
+  return { url: session.url ?? input.cancelUrl, demo: false };
+}
+
 export interface CheckoutLine { name: string; description?: string; amountCents: number; quantity: number; }
 
 export async function createCheckoutSession(input: {
