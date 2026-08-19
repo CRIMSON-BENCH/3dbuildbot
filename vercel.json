@@ -3,5 +3,9 @@
   "framework": "nextjs",
   "buildCommand": "NODE_OPTIONS='--max-old-space-size=8192' next build",
   "installCommand": "npm install --legacy-peer-deps",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "crons": [
+    { "path": "/api/cron/abandoned-quotes", "schedule": "0 15 * * *" },
+    { "path": "/api/cron/weekly-blog-post", "schedule": "0 12 * * MON" }
+  ]
 }

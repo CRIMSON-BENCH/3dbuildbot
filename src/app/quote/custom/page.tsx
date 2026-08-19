@@ -4,6 +4,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Container, Section, Badge } from "@/components/Card";
+import { WaitlistForm } from "@/components/WaitlistForm";
 
 export const metadata: Metadata = {
   title: "Custom Quote — Hand-Priced in 1 Business Day | 3DBuildBot",
@@ -67,6 +68,10 @@ export default function Page() {
           <Badge tone="green">No charge until approved</Badge>
           <Badge tone="slate">US-based routing</Badge>
           <Badge tone="brand">1 business day turnaround</Badge>
+        </div>
+
+        <div className="mt-10">
+          <WaitlistForm />
         </div>
 
         <p className="mt-8 text-sm text-slate-500">

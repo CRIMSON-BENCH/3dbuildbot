@@ -5,6 +5,7 @@ import { ThreeViewer } from "./ThreeViewer";
 import { Badge } from "./Card";
 import { parseCad, type ParsedCad } from "@/lib/cad-parse";
 import { MATERIALS } from "@/data/materials";
+import { UpsellNudges } from "./UpsellNudges";
 
 // Processes flagged `instant: false` route to a hand-quote CTA instead of
 // live pricing — the partner-shop side for those isn't wired for automated
@@ -297,6 +298,14 @@ export function QuoteWidget() {
                     </div>
                   </div>
                   {result.quote.volumeDiscountPct > 0 && <div className="mt-2 text-[11px] text-brand-700 dark:text-brand-300 font-mono">−{result.quote.volumeDiscountPct}% volume discount applied</div>}
+
+                  <UpsellNudges
+                    currentQty={qty}
+                    tierPrices={tierPrices}
+                    expedite={expedite}
+                    onQty={setQty}
+                    onExpedite={setExpedite}
+                  />
 
                   {/* Tier ladder */}
                   {Object.keys(tierPrices).length > 0 && (
