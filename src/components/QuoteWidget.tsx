@@ -42,7 +42,7 @@ interface QuoteResp {
   ok: boolean;
   quote: { unitPriceCents: number; totalPriceCents: number; leadTimeDays: string; costDrivers: { label: string; cents: number; pct: number }[]; volumeDiscountPct: number; compatible: boolean; reason?: string };
   dfm: { summary: string; issues: { level: string; text: string }[]; suggestedFinish?: string; usingMock: boolean; costOptimizations?: string[] };
-  saved?: { id: string } | null;
+  saved?: { id: string; partId?: string } | null;
 }
 
 export function QuoteWidget() {
@@ -59,6 +59,9 @@ export function QuoteWidget() {
   const [tierPrices, setTierPrices] = useState<Record<number, number>>({});
   const [me, setMe] = useState<{ id: string } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Track which partIds have already had their CAD bytes uploaded to Blob so
+  // parameter changes (material, qty, etc.) don't re-upload the same file.
+  const uploadedPartIds = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     fetch("/api/auth/me").then((r) => r.json()).then((d) => setMe(d.user ?? null)).catch(() => {});
@@ -108,7 +111,23 @@ export function QuoteWidget() {
     setTierPrices(tierMap);
     // The result for the selected quantity is the "main" one.
     const mainIdx = TIERS.indexOf(quantity);
-    setResult((mainIdx >= 0 ? results[mainIdx] : results[0]) as QuoteResp);
+    const mainResult = (mainIdx >= 0 ? results[mainIdx] : results[0]) as QuoteResp;
+    setResult(mainResult);
+
+    // Once a Part is persisted (auth'd user, first quote for this file), push
+    // the raw CAD bytes to Blob so the Stripe webhook can auto-dispatch to
+    // Slant 3D at payment time. Fire-and-forget; failure just means manual
+    // dispatch later.
+    const partId = mainResult?.saved?.partId;
+    if (partId && file && !uploadedPartIds.current.has(partId)) {
+      uploadedPartIds.current.add(partId);
+      fetch(`/api/cad/upload?partId=${encodeURIComponent(partId)}`, {
+        method: "POST",
+        headers: { "content-type": "application/octet-stream" },
+        body: file,
+      }).catch(() => uploadedPartIds.current.delete(partId));
+    }
+
     setBusy(false);
   }
 
