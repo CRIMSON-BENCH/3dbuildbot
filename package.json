@@ -16,7 +16,7 @@
     "@clerk/nextjs": "^7.7.6",
     "@google/generative-ai": "^0.24.1",
     "@react-three/drei": "^9.121.4",
-    "@react-three/fiber": "^8.17.10",
+    "@react-three/fiber": "^9.7.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/qrcode": "^1.5.6",
     "@vercel/analytics": "^2.0.1",
